@@ -276,13 +276,13 @@ mp4fragment input.mp4 output.mp4
 
 ## MSE VOD Demo
 
-<video src="http://akshare.b0.upaiyun.com/assets/mse_vod_demo.mp4" controls="controls">
+<video src="http://akshare.b0.upaiyun.com/assets/mse_vod_demo.mp4" width="500" controls="controls">
 Your browser does not support the video tag.
 </video>
 
 ## MSE Live Demo
 
-<video src="http://akshare.b0.upaiyun.com/assets/mse_live_demo.mp4" controls="controls">
+<video src="http://akshare.b0.upaiyun.com/assets/mse_live_demo.mp4" width="500" controls="controls">
 Your browser does not support the video tag.
 </video>
 
