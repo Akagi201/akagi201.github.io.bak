@@ -6,6 +6,8 @@ menu = "main"
 
 +++
 
+![codewars](https://www.codewars.com/users/Akagi201/badges/large)
+
 ## Time Line
 
 The important things in my life. <http://akagi201.github.io/aklife/>
