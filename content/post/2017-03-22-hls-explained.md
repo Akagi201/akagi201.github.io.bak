@@ -1,7 +1,7 @@
 +++
 date = "2017-03-22T17:04:50+08:00"
 title = "HLS 协议详解"
-slug = " hls-explained"
+slug = "hls-explained"
 
 +++
 
