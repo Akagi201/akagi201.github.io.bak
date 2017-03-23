@@ -7,7 +7,7 @@ slug = "hls-explained"
 
 ## HLS 概述
 
-HLS 全称是 HTTP Live Streaming, 是一个由 Apple 公司实现的基于 HTTP 的媒体流传输协议. 他跟 DASH 协议的原理非常类似. 通过将整条流切割成一个小的可以通过 HTTP 下载的媒体文件.
+HLS 全称是 HTTP Live Streaming, 是一个由 Apple 公司实现的基于 HTTP 的媒体流传输协议. 他跟 DASH 协议的原理非常类似. 通过将整条流切割成一个小的可以通过 HTTP 下载的媒体文件, 然后提供一个配套的媒体列表文件, 提供给客户端, 让客户端顺序地拉取这些媒体文件播放, 来实现看上去是在播放一条流的效果.
 
 由于传输层协议只需要标准的 HTTP 协议, HLS 可以方便的透过防火墙或者代理服务器, 而且可以很方便的利用 CDN 进行分发加速, 并且客户端实现起来也很方便.
 
@@ -71,7 +71,7 @@ http://example.com/audio-only.m3u8
 
 * HLS 通过 URI(RFC3986) 指向的一个 Playlist 来表示一个媒体流.
 * 一个 Playlist 可以是一个 Media Playlist 或者 Master Playlist, 使用 UTF-8 编码的文本文件, 包含一些 URI 跟描述性的 tags.
-* 一个 Media Playlist 包含一个 Media Segments 列表,当顺序播放时, 能播放整个完整的流. 
+* 一个 Media Playlist 包含一个 Media Segments 列表,当顺序播放时, 能播放整个完整的流.
 * 要想播放这个 Playlist, 客户端需要首先下载他, 然后播放里面的每一个 Media Segment.
 * 更加复杂的情况是, Playlist 是一个 Master Playlist, 包含一个 Variant Stream 集合, 通常每个 Variant Stream 里面是同一个流的多个不同版本(如: 分辨率, 码率不同).
 
