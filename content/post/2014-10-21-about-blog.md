@@ -2,6 +2,7 @@
 title = "About Blog"
 date = "2014-10-21T02:53:26+08:00"
 slug = "about-blog"
+githubIssuesID = 38
 
 +++
 

@@ -2,6 +2,7 @@
 title = "Learning uC/OS"
 date = "2014-11-13T01:28:26+08:00"
 slug = "learning-ucos"
+githubIssuesID = 40
 
 +++
 

@@ -2,6 +2,7 @@
 title = "Learning Perl"
 date = "2013-11-03T12:50:08+08:00"
 slug = "learning-perl"
+githubIssuesID = 7
 
 +++
 

@@ -2,6 +2,7 @@
 title = "网络嵌入式设备框架"
 date = "2014-03-26T07:46:08+08:00"
 slug = "network-device-framework"
+githubIssuesID = 23
 
 +++
 

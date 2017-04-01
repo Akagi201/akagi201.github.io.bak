@@ -2,6 +2,7 @@
 date = "2015-09-11T20:03:26+08:00"
 title = "取代netcat的瑞士军刀socat"
 slug = "socat-extended-netcat"
+githubIssuesID = 57
 
 +++
 

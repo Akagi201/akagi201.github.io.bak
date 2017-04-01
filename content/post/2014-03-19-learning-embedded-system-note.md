@@ -2,6 +2,7 @@
 title = "Learning Embedded System Note"
 date = "2014-03-09T13:41:47+08:00"
 slug = "learning-embedded-system-note"
+githubIssuesID = 17
 
 +++
 

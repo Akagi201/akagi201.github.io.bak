@@ -2,6 +2,7 @@
 title = "A File-oriented C/C++ Dependency Manager Biicode"
 date = "2015-03-16T04:45:08+08:00"
 slug = "a-file-oriented-c-cpp-dependency-manager-biicode"
+githubIssuesID = 52
 
 +++
 

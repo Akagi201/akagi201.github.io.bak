@@ -2,6 +2,7 @@
 title = "Learning CMake"
 date = "2014-10-19T00:35:26+08:00"
 slug = "learning-cmake"
+githubIssuesID = 37
 
 +++
 

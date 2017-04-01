@@ -2,6 +2,7 @@
 title = "Fitbit Flex"
 date = "2013-09-17T14:32:08+08:00"
 slug = "fitbit-flex"
+githubIssuesID = 3
 
 +++
 

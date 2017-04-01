@@ -2,6 +2,7 @@
 title = "Learning Google C++ Testing Framework"
 date = "2014-12-04T21:35:26+08:00"
 slug = "learning-gtest"
+githubIssuesID = 41
 
 +++
 

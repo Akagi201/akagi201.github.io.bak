@@ -2,6 +2,7 @@
 title = "Wireless Penetration"
 date = "2014-05-28T15:28:26+08:00"
 slug = "wireless-penetration"
+githubIssuesID = 27
 
 +++
 

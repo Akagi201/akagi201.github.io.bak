@@ -2,6 +2,7 @@
 title = "Learning Makefile"
 date = "2014-06-05T01:08:08+08:00"
 slug = "learning-makefile"
+githubIssuesID = 29
 
 +++
 

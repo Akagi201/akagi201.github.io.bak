@@ -2,6 +2,7 @@
 title = "Learning cURL"
 date = "2014-12-09T03:55:26+08:00"
 slug = "learning-curl"
+githubIssuesID = 42
 
 +++
 

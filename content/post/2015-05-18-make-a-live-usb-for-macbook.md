@@ -2,6 +2,7 @@
 title = "Make A Live USB For MacBook"
 date = "2015-05-18T06:09:26+08:00"
 slug = "make-a-live-usb-for-macbook"
+githubIssuesID = 55
 
 +++
 

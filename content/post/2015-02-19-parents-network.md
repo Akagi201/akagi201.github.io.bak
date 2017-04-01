@@ -2,6 +2,7 @@
 title = "教不懂电脑的父母上网"
 date = "2015-02-19T13:30:08+08:00"
 slug = "parents-network"
+githubIssuesID = 47
 
 +++
 

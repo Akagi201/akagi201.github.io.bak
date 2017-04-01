@@ -2,6 +2,7 @@
 title = "Stream Encoder"
 date = "2015-01-14T16:02:08+08:00"
 slug = "stream-encoder"
+githubIssuesID = 44
 
 +++
 

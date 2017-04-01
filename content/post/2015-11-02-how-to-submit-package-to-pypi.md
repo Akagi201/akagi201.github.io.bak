@@ -2,6 +2,7 @@
 date = "2015-11-02T09:59:54+08:00"
 title = "如何提交Package到PyPI"
 slug = "how-to-submit-package-to-pypi"
+githubIssuesID = 59
 
 +++
 

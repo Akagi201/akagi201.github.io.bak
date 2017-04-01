@@ -2,6 +2,8 @@
 date = "2016-01-28T20:00:00+08:00"
 title = "如何在 Go 语言中使用 Redis 连接池"
 slug = "how-to-use-redis-pool-in-go"
+githubIssuesID = 61
+
 +++
 
 ![redis_go](http://akagi201.qiniudn.com/redis_go.png)

@@ -2,6 +2,7 @@
 title = "一个简单的汇编程序分析"
 date = "2015-03-01T12:38:08+08:00"
 slug = "a-simple-assembly-program-analysis"
+githubIssuesID = 48
 
 +++
 

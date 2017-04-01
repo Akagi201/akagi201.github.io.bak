@@ -2,6 +2,7 @@
 title = "Learning OpenWrt - Outline"
 date = "2014-08-25T03:02:26+08:00"
 slug = "learning-openwrt"
+githubIssuesID = 33
 
 +++
 

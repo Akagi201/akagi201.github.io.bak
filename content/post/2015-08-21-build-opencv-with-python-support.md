@@ -2,6 +2,7 @@
 title = "Build OpenCV With Python Support"
 date = "2015-08-21T06:43:26+08:00"
 slug = "buid-opencv-with-python-support"
+githubIssuesID = 56
 
 +++
 

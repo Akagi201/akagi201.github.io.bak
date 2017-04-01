@@ -2,6 +2,7 @@
 title = "在Mac OS X下配置OpenWrt Buildroot环境"
 date = "2013-10-28T15:00:08+08:00"
 slug = "openwrt-buildroot-on-macosx"
+githubIssuesID = 6
 
 +++
 

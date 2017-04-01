@@ -2,6 +2,7 @@
 title = "无线基础之无线网卡"
 date = "2014-05-05T07:14:26+08:00"
 slug = "wireless-device"
+githubIssuesID = 26
 
 +++
 

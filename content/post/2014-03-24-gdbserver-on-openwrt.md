@@ -2,6 +2,7 @@
 title = "Gdbserver On OpenWrt"
 date = "2014-03-24T02:56:08+08:00"
 slug = "gdbserver-on-openwrt"
+githubIssuesID = 19
 
 +++
 

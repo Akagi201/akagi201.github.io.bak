@@ -2,6 +2,7 @@
 date = "2016-09-21T17:50:00+08:00"
 title = "mqkv 一个通用的基于分布式消息队列的分布式存储"
 slug = "mqkv-a-general-distributed-storage-based-on-distributed-message-queue"
+githubIssuesID = 66
 
 +++
 

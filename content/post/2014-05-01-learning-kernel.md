@@ -2,6 +2,7 @@
 title = "Learning Kernel"
 date = "2014-05-01T06:14:08+08:00"
 slug = "learning-kernel"
+githubIssuesID = 25
 
 +++
 

@@ -2,6 +2,7 @@
 title = "minicom on mac"
 date = "2013-10-27T05:41:08+08:00"
 slug = "minicom-on-mac"
+githubIssuesID = 5
 
 +++
 

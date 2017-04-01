@@ -2,6 +2,7 @@
 title = "Simple RTMP Server分析"
 date = "2015-03-13T08:24:08+08:00"
 slug = "simple-rtmp-server-analysis"
+githubIssuesID = 50
 
 +++
 

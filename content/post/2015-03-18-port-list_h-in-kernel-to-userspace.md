@@ -2,6 +2,7 @@
 title = "移植linux内核的list.h到用户态"
 date = "2015-03-18T08:32:26+08:00"
 slug = "port-list_h-in-kernel-to-userspace"
+githubIssuesID = 53
 
 +++
 

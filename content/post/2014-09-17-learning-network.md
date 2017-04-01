@@ -2,6 +2,7 @@
 title = "Learning Network"
 date = "2014-09-17T15:28:26+08:00"
 slug = "learning-network"
+githubIssuesID = 35
 
 +++
 

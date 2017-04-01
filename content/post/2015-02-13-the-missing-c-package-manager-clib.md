@@ -2,6 +2,7 @@
 title = "The Missing C Package Manager Clib"
 date = "2015-02-12T07:44:08+08:00"
 slug = "the-missing-c-package-manager-clib"
+githubIssuesID = 46
 
 +++
 

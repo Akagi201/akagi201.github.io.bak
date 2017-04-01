@@ -2,6 +2,7 @@
 title = "About"
 date = "2014-03-08T02:37:08+08:00"
 slug = "openwrt-10-years"
+githubIssuesID = 12
 
 +++
 

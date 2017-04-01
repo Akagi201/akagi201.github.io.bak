@@ -2,6 +2,7 @@
 title = "体验设计"
 date = "2014-03-16T07:09:08+08:00"
 slug = "experience-design"
+githubIssuesID = 16
 
 +++
 

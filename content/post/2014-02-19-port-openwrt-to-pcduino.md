@@ -2,6 +2,7 @@
 title = "移植OpenWrt到pcDuino"
 date = "2014-02-19T10:34:08+08:00"
 slug = "port-openwrt-to-pcduino"
+githubIssuesID = 9
 
 +++
 

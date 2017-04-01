@@ -2,6 +2,7 @@
 title = "简单的内核态时间片轮转程序"
 date = "2015-03-15T10:45:08+08:00"
 slug = "simple-time-round-in-kernel"
+githubIssuesID = 51
 
 +++
 

@@ -2,6 +2,7 @@
 date = "2016-12-02T10:39:50+08:00"
 title = "HTML5 直播协议之 WebSocket 和 MSE"
 slug = "websocket-mse"
+githubIssuesID = 68
 
 +++
 

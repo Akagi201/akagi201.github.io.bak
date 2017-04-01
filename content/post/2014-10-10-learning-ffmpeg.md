@@ -2,6 +2,7 @@
 title = "Learning FFmpeg"
 date = "2014-10-10T10:31:26+08:00"
 slug = "learning-ffmpeg"
+githubIssuesID = 36
 
 +++
 

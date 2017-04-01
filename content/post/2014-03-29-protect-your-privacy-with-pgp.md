@@ -2,6 +2,7 @@
 title = "保护你的隐私, 从PGP开始"
 date = "2014-03-29T07:11:08+08:00"
 slug = "protect-your-privacy-with-pgp"
+githubIssuesID = 24
 
 +++
 

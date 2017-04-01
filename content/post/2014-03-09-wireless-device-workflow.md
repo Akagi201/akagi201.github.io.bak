@@ -2,6 +2,7 @@
 title = "无线产品开发流程概述"
 date = "2014-03-09T02:39:08+08:00"
 slug = "wireless-device-workflow"
+githubIssuesID = 13
 
 +++
 

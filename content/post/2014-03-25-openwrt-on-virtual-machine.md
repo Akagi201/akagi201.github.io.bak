@@ -2,6 +2,7 @@
 title = "在虚拟机上搭建OpenWrt平台"
 date = "2014-03-25T03:18:08+08:00"
 slug = "openwrt-on-virtual-machine"
+githubIssuesID = 21
 
 +++
 

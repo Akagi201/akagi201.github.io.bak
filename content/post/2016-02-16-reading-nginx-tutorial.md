@@ -2,6 +2,7 @@
 date = "2016-02-16T08:26:44+08:00"
 title = "Reading Nginx tutorial"
 slug = "reading-nginx-tutorial"
+githubIssuesID = 62
 
 +++
 

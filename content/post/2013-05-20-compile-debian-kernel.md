@@ -2,6 +2,7 @@
 title = "Compile Debian Kernel"
 date = "2013-05-20T20:27:08+08:00"
 slug = "compile-debian-kernel"
+githubIssuesID = 2
 
 +++
 

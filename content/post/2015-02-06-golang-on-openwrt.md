@@ -2,6 +2,7 @@
 title = "Golang on OpenWrt"
 date = "2015-02-06T01:51:08+08:00"
 slug = "golang-on-openwrt"
+githubIssuesID = 45
 
 +++
 

@@ -2,6 +2,7 @@
 date = "2016-09-20T16:35:00+08:00"
 title = "设计优先的 Restful API 服务开发与服务解耦实践"
 slug = "design-first-restapi-and-service-decoupling-in-action"
+githubIssuesID = 65
 
 +++
 

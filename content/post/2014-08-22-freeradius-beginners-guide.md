@@ -2,6 +2,7 @@
 title = "FreeRADIUS新手入门 - 我翻译的开源书"
 date = "2014-08-22T13:35:26+08:00"
 slug = "freeradius-beginners-guide"
+githubIssuesID = 32
 
 +++
 

@@ -2,6 +2,7 @@
 title = "地理围栏(Geo-fencing)"
 date = "2014-06-26T02:21:26+08:00"
 slug = "geo-fencing"
+githubIssuesID = 30
 
 +++
 

@@ -2,6 +2,7 @@
 title = "Learning Lua"
 date = "2014-03-13T12:45:08+08:00"
 slug = "learning-lua"
+githubIssuesID = 15
 
 +++
 

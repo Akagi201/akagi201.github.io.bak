@@ -2,6 +2,7 @@
 title = "Keep Gitting My CV With Markdown"
 date = "2013-09-27T00:43:08+08:00"
 slug = "keep-gitting-my-cv-with-markdown"
+githubIssuesID = 4
 
 +++
 

@@ -2,6 +2,7 @@
 title = "Root Nook Simple Touch"
 date = "2014-05-31T23:14:24+08:00"
 slug = "root-nook-simple-touch"
+githubIssuesID = 28
 
 +++
 

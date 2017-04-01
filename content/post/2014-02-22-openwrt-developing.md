@@ -2,6 +2,7 @@
 title = "OpenWrt开发文档"
 date = "2014-02-22T02:44:08+08:00"
 slug = "openwrt-developing"
+githubIssuesID = 10
 
 +++
 

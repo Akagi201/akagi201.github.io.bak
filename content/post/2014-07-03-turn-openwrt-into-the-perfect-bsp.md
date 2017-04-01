@@ -2,6 +2,7 @@
 title = "将OpenWrt变成完美的BSP"
 date = "2014-07-03T12:26:26+08:00"
 slug = "turn-openwrt-into-the-perfect-bsp"
+githubIssuesID = 31
 
 +++
 

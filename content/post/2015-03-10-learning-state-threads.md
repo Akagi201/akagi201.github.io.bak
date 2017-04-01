@@ -2,6 +2,7 @@
 title = "学习State Threads"
 date = "2015-03-10T12:35:08+08:00"
 slug = "learning-state-threads"
+githubIssuesID = 49
 
 +++
 

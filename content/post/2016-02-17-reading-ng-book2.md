@@ -2,6 +2,7 @@
 date = "2016-02-17T19:09:19+08:00"
 title = "Reading ng-book 2"
 slug = "reading-ng-book2"
+githubIssuesID = 63
 
 +++
 

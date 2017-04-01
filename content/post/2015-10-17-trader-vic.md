@@ -2,6 +2,7 @@
 date = "2015-10-17T16:47:36+08:00"
 title = "专业投机原理书评"
 slug = "trader-vic"
+githubIssuesID = 58
 
 +++
 

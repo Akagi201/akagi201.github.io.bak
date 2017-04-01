@@ -2,6 +2,7 @@
 title = "git commit 规范"
 date = "2014-03-24T01:32:08+08:00"
 slug = "git-commit-convention"
+githubIssuesID = 20
 
 +++
 
