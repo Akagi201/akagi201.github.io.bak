@@ -25,7 +25,7 @@ WebSocket 是直接基于 TCP 连接之上的通信协议, 可以在单个 TCP �
 
 WebSocket 是独立的创建在 TCP 上的协议, HTTP 协议中的那些概念都不复存在, 和 HTTP 的唯一关联是使用 HTTP 协议的 101 状态码进行协议切换, 使用的 TCP 端口是 80, 可以用于绕过大多数防火墙的限制.
 
-![websocket_protocol](http://akshare.b0.upaiyun.com/assets/websocket_protocol.png)
+![websocket_protocol](http://akagi201.qiniudn.com/websocket_protocol.png)
 
 ### WebSocket 握手
 
@@ -115,7 +115,7 @@ Media Source Extensions (MSE) 是一个主流浏览器支持的新的 Web API. M
 
 通过 [caniuse](http://caniuse.com/#feat=mediasource) 来检查是否浏览器支持情况.
 
-![mse-support](http://akshare.b0.upaiyun.com/assets/mse-support.png)
+![mse-support](http://akagi201.qiniudn.com/mse-support.png)
 
 通过 [`MediaSource.isTypeSupported()`](https://developer.mozilla.org/en-US/docs/Web/API/MediaSource/isTypeSupported) 可以进一步地检查 codec MIME 类型是否支持.
 
@@ -140,11 +140,11 @@ WebM 和 WebP 是两个姊妹项目, 都是由 Google 赞助的. 由于 WebM 是
 
 下面一个 fragment mp4 文件通过 [mp4parser](http://mp4parser.com/) 分析后的截图
 
-![fmp4](http://akshare.b0.upaiyun.com/assets/fmp4.png)
+![fmp4](http://akagi201.qiniudn.com/fmp4.png)
 
 下面一个 non-fragment mp4 文件通过 [mp4parser](http://mp4parser.com/) 分析后的截图
 
-![nfmp4](http://akshare.b0.upaiyun.com/assets/nfmp4.png)
+![nfmp4](http://akagi201.qiniudn.com/nfmp4.png)
 
 Apple 在今年的 WWDC 大会上宣布会在 iOS 10, tvOS, macOS 的 HLS 中支持 fMP4.
 
@@ -162,7 +162,7 @@ Apple 在今年的 WWDC 大会上宣布会在 iOS 10, tvOS, macOS 的 HLS 中支
 
 ### MSE 内部结构
 
-![mse_arch](http://akshare.b0.upaiyun.com/assets/mse_arch.png)
+![mse_arch](http://akagi201.qiniudn.com/mse_arch.png)
 
 MSE 本身的设计是不依赖任务特定的编解码和容器格式的, 但是不同的浏览器支持程度是不一样的. 可以通过传递一个 MIME 类型的字符串到静态方法: MediaSource.isTypeSupported 来检查.
 
@@ -276,13 +276,13 @@ mp4fragment input.mp4 output.mp4
 
 ## MSE VOD Demo
 
-<video src="http://akshare.b0.upaiyun.com/assets/mse_vod_demo.mp4" width="480" height="320" controls="controls">
+<video src="http://akagi201.qiniudn.com/mse_vod_demo.mp4" width="480" height="320" controls="controls">
 Your browser does not support the video tag.
 </video>
 
 ## MSE Live Demo
 
-<video src="http://akshare.b0.upaiyun.com/assets/mse_live_demo.mp4" width="480" height="320" controls="controls">
+<video src="http://akagi201.qiniudn.com/mse_live_demo.mp4" width="480" height="320" controls="controls">
 Your browser does not support the video tag.
 </video>
 
