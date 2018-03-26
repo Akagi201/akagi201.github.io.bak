@@ -165,55 +165,7 @@ root@199345c94897:~# cleos set contract token contracts/eosio.token/eosio.token.
 
 ```
 root@199345c94897:/tmp/build# cleos get code token
-code hash: 78807447a2cb04645b82125d9e4f499e0c262d018514cfa8f77bfb5e57c8e7a4
-{
-  "transaction_id": "3928a42f0132b6d48738e3f1f69b2739f1ffe73c0778f95bed6156d4e1ff1456",
-  "processed": {
-    "status": "executed",
-    "id": "3928a42f0132b6d48738e3f1f69b2739f1ffe73c0778f95bed6156d4e1ff1456",
-    "action_traces": [{
-        "receiver": "eosio",
-        "act": {
-          "account": "eosio",
-          "name": "setcode",
-          "authorization": [{
-              "actor": "token",
-              "permission": "active"
-            }
-          ],
-          "data": "0000000080a920cd000089a2010061736d010....20616c6c6f636174656400"
-        },
-        "console": "",
-        "region_id": 0,
-        "cycle_index": 0,
-        "data_access": [{
-            "type": "write",
-            "code": "eosio",
-            "scope": "eosio.auth",
-            "sequence": 4
-          }
-        ]
-      },{
-        "receiver": "eosio",
-        "act": {
-          "account": "eosio",
-          "name": "setabi",
-          "authorization": [{
-              "actor": "token",
-              "permission": "active"
-            }
-          ],
-          "data": "0000000080a920cd010c6163636f756e745f6e616d65046e616d6505087472616e7366657200040466726f6d0c6163636f756e745f6e616d6502746f0c6163636f756e745f6e616d65087175616e74697479056173736574046d656d6f06737472696e67066372656174650005066973737565720c6163636f756e745f6e616d650e6d6178696d756d5f737570706c790561737365740a63616e5f667265657a650575696e74380a63616e5f726563616c6c0575696e74380d63616e5f77686974656c6973740575696e7438056973737565000302746f0c6163636f756e745f6e616d65087175616e74697479056173736574046d656d6f06737472696e67076163636f756e7400020863757272656e63790675696e7436340762616c616e63650675696e7436340e63757272656e63795f737461747300020863757272656e63790675696e74363406737570706c790675696e74363403000000572d3ccdcd087472616e736665720000000000a5317605697373756500000000a86cd4450663726561746502000000204f4d113203693634010863757272656e6379010675696e743634076163636f756e740000000000904dc603693634010863757272656e6379010675696e7436340e63757272656e63795f7374617473"
-        },
-        "console": "",
-        "region_id": 0,
-        "cycle_index": 0,
-        "data_access": []
-      }
-    ],
-    "deferred_transactions": []
-  }
-}
+code hash: 8a7e86ac5dc972c1b79f2f7c90ef73ef07ed78a8aee6e546459307eee213e299
 ```
 
 ## 测试 token 合约
