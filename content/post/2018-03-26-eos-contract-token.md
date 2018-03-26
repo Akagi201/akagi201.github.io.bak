@@ -164,7 +164,7 @@ root@199345c94897:~# cleos set contract token contracts/eosio.token/eosio.token.
 * 查看合约地址
 
 ```
-root@199345c94897:/tmp/build# cleos get code simpletoken
+root@199345c94897:/tmp/build# cleos get code token
 code hash: 78807447a2cb04645b82125d9e4f499e0c262d018514cfa8f77bfb5e57c8e7a4
 {
   "transaction_id": "3928a42f0132b6d48738e3f1f69b2739f1ffe73c0778f95bed6156d4e1ff1456",
@@ -246,7 +246,7 @@ cleos push action token transfer '{"from":"token","to":"eosio","quantity":"20.00
 cleos get table eosio token account
 ```
 
-* 查看 simpletoken 账户:
+* 查看 token 账户:
 
 ```
 cleos get table token token account
