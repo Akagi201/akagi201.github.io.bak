@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/zh/post/eos-contract-token/</loc>
+    <lastmod>2018-03-26T13:46:50+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/</loc>
+    <lastmod>2018-03-26T13:46:50+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/post/"
+                />
+  </url>
+  
+  <url>
+    <loc>/zh/</loc>
+    <lastmod>2018-03-26T13:46:50+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/"
+                />
+  </url>
+  
+  <url>
+    <loc>/zh/post/hls-explained/</loc>
+    <lastmod>2017-03-22T17:04:50+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/2016-summary/</loc>
+    <lastmod>2017-01-02T18:34:50+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/websocket-mse/</loc>
+    <lastmod>2016-12-02T10:39:50+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/http-flv-explained/</loc>
+    <lastmod>2016-10-31T16:21:50+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/mqkv-a-general-distributed-storage-based-on-distributed-message-queue/</loc>
+    <lastmod>2016-09-21T17:50:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/design-first-restapi-and-service-decoupling-in-action/</loc>
+    <lastmod>2016-09-20T16:35:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/reading-webrtcbook/</loc>
+    <lastmod>2016-06-13T20:51:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/reading-ng-book2/</loc>
+    <lastmod>2016-02-17T19:09:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/reading-nginx-tutorial/</loc>
+    <lastmod>2016-02-16T08:26:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/how-to-use-redis-pool-in-go/</loc>
+    <lastmod>2016-01-28T20:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-luadist/</loc>
+    <lastmod>2015-11-28T22:35:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/how-to-submit-package-to-pypi/</loc>
+    <lastmod>2015-11-02T09:59:54+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/trader-vic/</loc>
+    <lastmod>2015-10-17T16:47:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/socat-extended-netcat/</loc>
+    <lastmod>2015-09-11T20:03:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/buid-opencv-with-python-support/</loc>
+    <lastmod>2015-08-21T06:43:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/make-a-live-usb-for-macbook/</loc>
+    <lastmod>2015-05-18T06:09:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/break-firewall/</loc>
+    <lastmod>2015-03-19T11:32:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/port-list_h-in-kernel-to-userspace/</loc>
+    <lastmod>2015-03-18T08:32:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/a-file-oriented-c-cpp-dependency-manager-biicode/</loc>
+    <lastmod>2015-03-16T04:45:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/simple-time-round-in-kernel/</loc>
+    <lastmod>2015-03-15T10:45:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/simple-rtmp-server-analysis/</loc>
+    <lastmod>2015-03-13T08:24:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-state-threads/</loc>
+    <lastmod>2015-03-10T12:35:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/a-simple-assembly-program-analysis/</loc>
+    <lastmod>2015-03-01T12:38:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/parents-network/</loc>
+    <lastmod>2015-02-19T13:30:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/the-missing-c-package-manager-clib/</loc>
+    <lastmod>2015-02-12T07:44:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/golang-on-openwrt/</loc>
+    <lastmod>2015-02-06T01:51:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/stream-encoder/</loc>
+    <lastmod>2015-01-14T16:02:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-rtp/</loc>
+    <lastmod>2014-12-15T21:50:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-curl/</loc>
+    <lastmod>2014-12-09T03:55:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-gtest/</loc>
+    <lastmod>2014-12-04T21:35:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-libuv/</loc>
+    <lastmod>2014-11-13T01:50:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-ucos/</loc>
+    <lastmod>2014-11-13T01:28:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/about-blog/</loc>
+    <lastmod>2014-10-21T02:53:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-cmake/</loc>
+    <lastmod>2014-10-19T00:35:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-ffmpeg/</loc>
+    <lastmod>2014-10-10T10:31:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-network/</loc>
+    <lastmod>2014-09-17T15:28:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/streaming-protocols/</loc>
+    <lastmod>2014-09-09T15:28:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-openwrt/</loc>
+    <lastmod>2014-08-25T03:02:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/freeradius-beginners-guide/</loc>
+    <lastmod>2014-08-22T13:35:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/turn-openwrt-into-the-perfect-bsp/</loc>
+    <lastmod>2014-07-03T12:26:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/geo-fencing/</loc>
+    <lastmod>2014-06-26T02:21:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-makefile/</loc>
+    <lastmod>2014-06-05T01:08:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/root-nook-simple-touch/</loc>
+    <lastmod>2014-05-31T23:14:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/wireless-penetration/</loc>
+    <lastmod>2014-05-28T15:28:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/wireless-device/</loc>
+    <lastmod>2014-05-05T07:14:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-kernel/</loc>
+    <lastmod>2014-05-01T06:14:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/protect-your-privacy-with-pgp/</loc>
+    <lastmod>2014-03-29T07:11:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/network-device-framework/</loc>
+    <lastmod>2014-03-26T07:46:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/httpd-framework/</loc>
+    <lastmod>2014-03-25T07:14:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/openwrt-on-virtual-machine/</loc>
+    <lastmod>2014-03-25T03:18:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/gdbserver-on-openwrt/</loc>
+    <lastmod>2014-03-24T02:56:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/git-commit-convention/</loc>
+    <lastmod>2014-03-24T01:32:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/mov-vs-ldr/</loc>
+    <lastmod>2014-03-19T09:24:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/experience-design/</loc>
+    <lastmod>2014-03-16T07:09:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-lua/</loc>
+    <lastmod>2014-03-13T12:45:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/mindmup/</loc>
+    <lastmod>2014-03-10T01:52:18+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-embedded-system-note/</loc>
+    <lastmod>2014-03-09T13:41:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/wireless-device-workflow/</loc>
+    <lastmod>2014-03-09T02:39:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/802_11ac-hardware/</loc>
+    <lastmod>2014-03-08T09:08:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/openwrt-10-years/</loc>
+    <lastmod>2014-03-08T02:37:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/openwrt-developing/</loc>
+    <lastmod>2014-02-22T02:44:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/port-openwrt-to-pcduino/</loc>
+    <lastmod>2014-02-19T10:34:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/protothreads/</loc>
+    <lastmod>2013-12-14T09:04:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/learning-perl/</loc>
+    <lastmod>2013-11-03T12:50:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/openwrt-buildroot-on-macosx/</loc>
+    <lastmod>2013-10-28T15:00:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/minicom-on-mac/</loc>
+    <lastmod>2013-10-27T05:41:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/keep-gitting-my-cv-with-markdown/</loc>
+    <lastmod>2013-09-27T00:43:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/fitbit-flex/</loc>
+    <lastmod>2013-09-17T14:32:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/compile-debian-kernel/</loc>
+    <lastmod>2013-05-20T20:27:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/post/akagi201-dotfiles/</loc>
+    <lastmod>2013-05-20T13:29:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/zh/authors/admin/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/authors/admin/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/authors/admin/"
+                />
+  </url>
+  
+  <url>
+    <loc>/zh/authors/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/authors/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/authors/"
+                />
+  </url>
+  
+  <url>
+    <loc>/zh/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>/zh/publication_types/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/publication_types/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/publication_types/"
+                />
+  </url>
+  
+  <url>
+    <loc>/zh/publication/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/publication/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/publication/"
+                />
+  </url>
+  
+  <url>
+    <loc>/zh/talk/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/talk/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/talk/"
+                />
+  </url>
+  
+  <url>
+    <loc>/zh/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="/zh/tags/"
+                />
+  </url>
+  
+</urlset>

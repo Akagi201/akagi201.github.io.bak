@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.7.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Akagi201">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Geo-fencing A geo-fence is a virtual perimeter for a real-world geographic area. http://en.wikipedia.org/wiki/Geo-fence 地理围栏(Geo-fencing)是LBS的一种新应用, 就是用一个虚拟的栅栏围出一个虚拟地理边界. 当手机进入, 离开">
+
+  
+  <link rel="alternate" hreflang="zh-Hans" href="/zh/post/geo-fencing/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(339, 90%, 68%)">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46663685-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-46663685-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/zh/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/zh/post/geo-fencing/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@Akagi201">
+  <meta property="twitter:creator" content="@Akagi201">
+  
+  <meta property="og:site_name" content="赤木酱">
+  <meta property="og:url" content="/zh/post/geo-fencing/">
+  <meta property="og:title" content="地理围栏(Geo-fencing) | 赤木酱">
+  <meta property="og:description" content="Geo-fencing A geo-fence is a virtual perimeter for a real-world geographic area. http://en.wikipedia.org/wiki/Geo-fence 地理围栏(Geo-fencing)是LBS的一种新应用, 就是用一个虚拟的栅栏围出一个虚拟地理边界. 当手机进入, 离开"><meta property="og:image" content="/img/akhead.png">
+  <meta property="twitter:image" content="/img/akhead.png"><meta property="og:locale" content="zh-Hans">
+  
+    
+      <meta property="article:published_time" content="2014-06-26T02:21:26&#43;08:00">
+    
+    <meta property="article:modified_time" content="2014-06-26T02:21:26&#43;08:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/zh/post/geo-fencing/"
+  },
+  "headline": "地理围栏(Geo-fencing)",
+  
+  "datePublished": "2014-06-26T02:21:26+08:00",
+  "dateModified": "2014-06-26T02:21:26+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Akagi201"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Akagi201",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "img//"
+    }
+  },
+  "description": "Geo-fencing A geo-fence is a virtual perimeter for a real-world geographic area. http://en.wikipedia.org/wiki/Geo-fence 地理围栏(Geo-fencing)是LBS的一种新应用, 就是用一个虚拟的栅栏围出一个虚拟地理边界. 当手机进入, 离开"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>地理围栏(Geo-fencing) | 赤木酱</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="dark">
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#about"><span>关于我</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#posts"><span>博客</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>地理围栏(Geo-fencing)</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    2014-06-26
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    4 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><img src="http://akagi201.qiniudn.com/geofencing.png" alt="geofencing"></p>
+<h2 id="geo-fencing">Geo-fencing</h2>
+<ul>
+<li>A geo-fence is a virtual perimeter for a real-world geographic area.</li>
+<li><a href="http://en.wikipedia.org/wiki/Geo-fence">http://en.wikipedia.org/wiki/Geo-fence</a></li>
+<li>地理围栏(Geo-fencing)是LBS的一种新应用, 就是用一个虚拟的栅栏围出一个虚拟地理边界. 当手机进入, 离开某个特定地理区域, 或在该区域内活动时, 手机可以接收自动通知和警告.</li>
+<li>有了地理围栏技术, 位置社交网站就可以帮助用户在进入某一地区时自动登记, 可应用智能购物, 个人助理, 家庭成员/朋友的发现, 智能家居等领域.</li>
+<li>地理围栏可通过蓝牙, WIFI, GPS等定位技术完成, 移动设备进入围栏后会自动选择最低功耗方式进行定位, 地理围栏技术为开发者提供全新想象空间.</li>
+<li>地理围栏技术均是: 预先划定一些多边形的区域, 一个中心化的设备或者云端知道定位源进入该区域; 定位源知道自己进入该区域; 触发一些响应, 例如消息的push. 在智能硬件时代, 这种能够更加精准地定位, 更加节省功耗, 更加有效率低成本的互联互通方式, 迎来爆发机会.</li>
+</ul>
+<h2 id="geo-fencing-vs-lbs">Geo-fencing vs LBS</h2>
+<ul>
+<li>地理围栏的地理区域是被网格化的. 网格化的标准是根据一个地理区域内的业务和商业聚类的, 而不是纯粹的经纬度和城市地图的匹配.</li>
+<li>实际上地理围栏的各个围栏的区隔是一个个的应用需求群地图. 主要的商业需求聚集在特定区域, 形成的一个聚合信息服务区域.</li>
+<li>终端自己或者在网络帮助下能够识别所处的围栏.</li>
+<li>用户的围栏信息彼此之间能够共享, 也能够与应用开发商分享.</li>
+<li>双向, 互动是关键.</li>
+<li>商业群落是地理围栏的核心, 类似城市的商圈.</li>
+<li>价值整合, 场景整合, 信息流资金流整合是关键.</li>
+</ul>
+<h2 id="geo-fencing-vs-beacons">Geo-fencing vs Beacons</h2>
+<ul>
+<li><a href="http://mashable.com/2014/02/24/beacons-geofencing-location/">http://mashable.com/2014/02/24/beacons-geofencing-location/</a></li>
+<li><a href="http://www.mobizou.com/geolocation-privacy-gaining-steam/">http://www.mobizou.com/geolocation-privacy-gaining-steam/</a></li>
+</ul>
+<h2 id="geo-fencing-applications">Geo-fencing Applications</h2>
+<h3 id="百度的地理围栏技术">百度的地理围栏技术</h3>
+<p>百度地理围栏技术是国内首家提供离线+在线地理围栏服务的产品, 基于位置的提醒和离在线结合的方式, 实现了功耗的大幅降低. 用户离关键位置点较远的时候, 会进行距离判断, 在用户到达围栏周围的时候, 再请求在线定位, 询问用户是否触发围栏.由于用户不需要一直打开GPS, 所以在使用该功能时达到了省流量, 省电的目的.</p>
+<p>百度地理围栏技术&quot;离线+在线&quot;的技术策略, 能够让在用户体验上更为顺畅, 摆脱网络状况的限制, 避免智能手机普遍待机时间短的缺点, 极大提升了地理围栏的工作效率, 因此使用百度定位SDK提供的地理围栏服务的开发者能够设计开发更适合用户需求的产品. 目前, 已经有大量开发者利用百度地理围栏SDK开发相关应用, 精彩创意层出不穷.</p>
+<h3 id="intel的地理围栏技术">Intel的地理围栏技术</h3>
+<p>Intel的地理围栏技术采用了有效地将地理信息整合到移动平台的应用中去, 极大提高应用的易用性, 同时权衡系统待机时间与响应时间是Intel地理围栏的关键亮点, 实现了低功耗, 快速响应和高精度三者的完美结合, 其围栏技术的创新点:</p>
+<p>1）使用MCU完成连续监测功能.</p>
+<p>2）基于情境自动甑选合理的位置提供模块.</p>
+<p>3）通过传感器轨迹推算实现实时定位和矫正.</p>
+<p>Intel地理围栏技术亮点包括:</p>
+<p>1）多定位源GNSS/Modem/WiFi.</p>
+<p>2）传感器轨迹推算.</p>
+<p>3）多地理围栏.</p>
+<p>4）情境感知.</p>
+<p>5）自适应.</p>
+<h3 id="apple的地理围栏---ibeacons技术">Apple的地理围栏 - iBeacons技术</h3>
+<p>iBeacon的出现让地理定位能够更加精确——从几百米的精度提高到了一米甚至半米. 这个精细度非常高的地理围栏, 终于可以让很多的实际物体都有条件具有了定义自己地理位置标识的能力, 例如一张桌子, 一把椅子, 都可以有自己的地理坐标.</p>
+<p>苹果在iOS 7中推出的iBeacon协议包含两个部分:</p>
+<p>1）按照苹果对iBeacon发射设备的数据流格式, 定制蓝牙设备广播, 那么这台低功耗蓝牙设备就可以被识别为iBeacon协议发射装置.</p>
+<p>2）利用iOS设备对蓝牙的广播发出设备进行判断, 如果其发出的广播数据符合iBeacon的协议, 那么就认为这台低功耗蓝牙的发射装置是一台iBeacon基站.</p>
+<p>由于iBeacon建立在蓝牙协议的基础上, 所以这个技术天然拥有了两个优势:</p>
+<p>1）硬件的无缝过渡, 不需要硬件厂商投入成本进行完全不同的硬件开发.</p>
+<p>2）现有数据传输协议对于用户来说没有太大迁移成本, 完全有能力像智能路由(Wi-Fi协议)一样成为物联网的数据中心节点.</p>
+<h3 id="其他的地理围栏技术">其他的地理围栏技术</h3>
+<p>地理围栏技术在10年前便已出现. 在去年的Google IO大会上便已经有了地理围栏的展览.</p>
+<p>Meridian平台便提供Zones地理围栏功能, 这项功能允许用户在开发者推出的室内地图App上随意用多边形圈区域, 而当用户真正到达这些区域时, app会立马推送通知. 除了Meridian, 国外还有几家地理围栏平台, 比如PlaceCast, Digby Localpoint, Wifarer和ShopKick. 和上述几家最大的不同是, Meridian是通过Wifi传感而非GPS定位.</p>
+<p>而Google Lititude API也支持开发者在地图上标记多边形的围栏区域, App进入该趋于时便会收到push消息. 与iBeacons等技术不同的是, 这个push消息不是由基站发送, 而是云端推动的. 跟百度地图的地理围栏技术有些相似.</p>
+<h2 id="refs">Refs</h2>
+<ul>
+<li><a href="http://www.leikeji.com/thread-546-1-1.html">http://www.leikeji.com/thread-546-1-1.html</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/zh/post/geo-fencing/&amp;text=%e5%9c%b0%e7%90%86%e5%9b%b4%e6%a0%8f%28Geo-fencing%29" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/zh/post/geo-fencing/&amp;t=%e5%9c%b0%e7%90%86%e5%9b%b4%e6%a0%8f%28Geo-fencing%29" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=%e5%9c%b0%e7%90%86%e5%9b%b4%e6%a0%8f%28Geo-fencing%29&amp;body=/zh/post/geo-fencing/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/zh/post/geo-fencing/&amp;title=%e5%9c%b0%e7%90%86%e5%9b%b4%e6%a0%8f%28Geo-fencing%29" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=%e5%9c%b0%e7%90%86%e5%9b%b4%e6%a0%8f%28Geo-fencing%29%20/zh/post/geo-fencing/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/zh/post/geo-fencing/&amp;title=%e5%9c%b0%e7%90%86%e5%9b%b4%e6%a0%8f%28Geo-fencing%29" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="/zh/authors/admin/avatar_huc6dec3557548ee034c3f8b409a56beb4_9195_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Akagi201</a></h5>
+      <h6 class="card-subtitle">Professor of Securities development</h6>
+      <p class="card-text">My research interests include blockchain, high frequency trading, crawler and home automation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:akagi201@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<script src="https://utteranc.es/client.js"
+        repo=Akagi201/akagi201.github.io
+        issue-term="pathname"
+        label="Comment"
+        theme=github-dark-orange
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">下一页</div>
+    <a href="/zh/post/turn-openwrt-into-the-perfect-bsp/" rel="next">将OpenWrt变成完美的BSP</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">上一页</div>
+    <a href="/zh/post/learning-makefile/" rel="prev">Learning Makefile</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/zh/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"没有找到结果","placeholder":"搜索...","results":"搜索结果"};
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "出版物",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.a0d331bcd05dbe8b31e244f796710f08.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

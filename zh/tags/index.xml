@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags | 赤木酱</title>
+    <link>/zh/tags/</link>
+      <atom:link href="/zh/tags/index.xml" rel="self" type="application/rss+xml" />
+    <description>Tags</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-Hans</language>
+    <image>
+      <url>/img/akhead.png</url>
+      <title>Tags</title>
+      <link>/zh/tags/</link>
+    </image>
+    
+  </channel>
+</rss>

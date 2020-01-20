@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Recent &amp; Upcoming Talks | 赤木酱</title>
+    <link>/zh/talk/</link>
+      <atom:link href="/zh/talk/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent &amp; Upcoming Talks</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-Hans</language>
+    <image>
+      <url>/img/akhead.png</url>
+      <title>Recent &amp; Upcoming Talks</title>
+      <link>/zh/talk/</link>
+    </image>
+    
+  </channel>
+</rss>

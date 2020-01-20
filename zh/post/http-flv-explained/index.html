@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.7.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Akagi201">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="传统的直播协议要么使用 Adobe 的基于 TCP 的 RTMP 协议, 要么使用 Apple 的基于 HTTP 的 HLS 协议. 今天我要向大家介绍另外一种结合了 RTMP 的低延时, 以及可以复用现有 HTTP 分发资源">
+
+  
+  <link rel="alternate" hreflang="zh-Hans" href="/zh/post/http-flv-explained/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(339, 90%, 68%)">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46663685-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-46663685-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/zh/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/zh/post/http-flv-explained/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@Akagi201">
+  <meta property="twitter:creator" content="@Akagi201">
+  
+  <meta property="og:site_name" content="赤木酱">
+  <meta property="og:url" content="/zh/post/http-flv-explained/">
+  <meta property="og:title" content="直播协议 HTTP-FLV 详解 | 赤木酱">
+  <meta property="og:description" content="传统的直播协议要么使用 Adobe 的基于 TCP 的 RTMP 协议, 要么使用 Apple 的基于 HTTP 的 HLS 协议. 今天我要向大家介绍另外一种结合了 RTMP 的低延时, 以及可以复用现有 HTTP 分发资源"><meta property="og:image" content="/img/akhead.png">
+  <meta property="twitter:image" content="/img/akhead.png"><meta property="og:locale" content="zh-Hans">
+  
+    
+      <meta property="article:published_time" content="2016-10-31T16:21:50&#43;08:00">
+    
+    <meta property="article:modified_time" content="2016-10-31T16:21:50&#43;08:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/zh/post/http-flv-explained/"
+  },
+  "headline": "直播协议 HTTP-FLV 详解",
+  
+  "datePublished": "2016-10-31T16:21:50+08:00",
+  "dateModified": "2016-10-31T16:21:50+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Akagi201"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Akagi201",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "img//"
+    }
+  },
+  "description": "传统的直播协议要么使用 Adobe 的基于 TCP 的 RTMP 协议, 要么使用 Apple 的基于 HTTP 的 HLS 协议. 今天我要向大家介绍另外一种结合了 RTMP 的低延时, 以及可以复用现有 HTTP 分发资源"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>直播协议 HTTP-FLV 详解 | 赤木酱</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="dark">
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#about"><span>关于我</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#posts"><span>博客</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>直播协议 HTTP-FLV 详解</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    2016-10-31
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    6 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>传统的直播协议要么使用 Adobe 的基于 TCP 的 RTMP 协议, 要么使用 Apple 的基于 HTTP 的 HLS 协议.</p>
+<p>今天我要向大家介绍另外一种结合了 RTMP 的低延时, 以及可以复用现有 HTTP 分发资源的流式协议 HTTP-FLV.</p>
+<h2 id="flv">FLV</h2>
+<p>首先, 一定要先介绍一下 FLV 文件格式的细节.</p>
+<h3 id="flv-adobe-官方标准">FLV adobe 官方标准</h3>
+<p>FLV 文件格式标准是写在 
+<a href="http://download.macromedia.com/f4v/video_file_format_spec_v10_1.pdf" target="_blank" rel="noopener">F4V/FLV file format spec v10.1</a>
+ 的附录 E 里面的 FLV File Format.</p>
+<h3 id="单位说明">单位说明</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit data types</td>
+<td></td>
+</tr>
+<tr>
+<td>SI8</td>
+<td>Signed 8-bit integer</td>
+</tr>
+<tr>
+<td>SI16</td>
+<td>Signed 16-bit integer</td>
+</tr>
+<tr>
+<td>SI24</td>
+<td>Signed 24-bit integer</td>
+</tr>
+<tr>
+<td>SI32</td>
+<td>Signed 32-bit integer</td>
+</tr>
+<tr>
+<td>SI64</td>
+<td>Signed 32-bit integer</td>
+</tr>
+<tr>
+<td>UI8</td>
+<td>Unsigned 8-bit integer</td>
+</tr>
+<tr>
+<td>UI16</td>
+<td>Unsigned 16-bit integer</td>
+</tr>
+<tr>
+<td>UI24</td>
+<td>Unsigned 24-bit integer</td>
+</tr>
+<tr>
+<td>UI32</td>
+<td>Unsigned 32-bit integer</td>
+</tr>
+<tr>
+<td>UI64</td>
+<td>Unsigned 64-bit integer</td>
+</tr>
+<tr>
+<td>xxx[]</td>
+<td>Slice of type xxx</td>
+</tr>
+<tr>
+<td>xxx[n]</td>
+<td>Array of type xxx</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td>Sequence of Unicode 8-bit characters (UTF-8), terminated with 0x00</td>
+</tr>
+</tbody>
+</table>
+<h3 id="flv-文件头和文件体-e2-e3">FLV 文件头和文件体 (E.2, E.3)</h3>
+<p>从整个文件上看, FLV = FLV File Header + FLV File Body</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FLV File Header</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Signature</td>
+<td>UI8[3]</td>
+<td>签名, 总是 &lsquo;FLV&rsquo; (0x464C56)</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>UI8</td>
+<td>版本, 总是 0x01, 表示 FLV version 1</td>
+</tr>
+<tr>
+<td>TypeFlagsReserved</td>
+<td>UB [5]</td>
+<td>全 0</td>
+</tr>
+<tr>
+<td>TypeFlagsAudio</td>
+<td>UB[1]</td>
+<td>1 = 有音频</td>
+</tr>
+<tr>
+<td>TypeFlagsReserved</td>
+<td>UB[1]</td>
+<td>全 0</td>
+</tr>
+<tr>
+<td>TypeFlagsVideo</td>
+<td>UB[1]</td>
+<td>1 = 有视频</td>
+</tr>
+<tr>
+<td>DataOffset</td>
+<td>UI32</td>
+<td>整个文件头长度, 对于FLV v1, 总是 9</td>
+</tr>
+<tr>
+<td>FLV File Body</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PreviousTagSize0</td>
+<td>UI32</td>
+<td>总是 0</td>
+</tr>
+<tr>
+<td>Tag1</td>
+<td>FLVTAG</td>
+<td>第一个 tag</td>
+</tr>
+<tr>
+<td>PreviousTagSize1</td>
+<td>UI32</td>
+<td>前一个 tag 的大小, 包括他的 header, 即: 11 + 前一个 tag 的大小</td>
+</tr>
+<tr>
+<td>Tag2</td>
+<td>FLVTAG</td>
+<td>第二个 tag</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PreviousTagSizeN-1</td>
+<td>UI32</td>
+<td>前一个 tag 大小</td>
+</tr>
+<tr>
+<td>TagN</td>
+<td>FLVTAG</td>
+<td>最后一个 tag</td>
+</tr>
+<tr>
+<td>PreviousTagSizeN</td>
+<td>UI32</td>
+<td>最后一个 tag 大小, 包括他的 header</td>
+</tr>
+</tbody>
+</table>
+<p>通常, FLV 的前 13 个字节(flv header + PreviousTagSize0)完全相同, 所以, 程序中会单独定义一个常量来指定.</p>
+<h3 id="flv-tag-e4">FLV Tag (E.4)</h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FLV Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Reserved</td>
+<td>UB[2]</td>
+<td>保留给FMS, 应为 0</td>
+</tr>
+<tr>
+<td>Filter</td>
+<td>UB[1]</td>
+<td>0 = unencrypted tags, 1 = encrypted tags</td>
+</tr>
+<tr>
+<td>TagType</td>
+<td>UB [5]</td>
+<td>类型, 0x08 = audio, 0x09 = video, 0x12 = script data</td>
+</tr>
+<tr>
+<td>DataSize</td>
+<td>UI24</td>
+<td>message 长度, 从 StreamID 到 tag 结束(len(tag) - 11)</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>UI24</td>
+<td>相对于第一个 tag 的时间戳(unit: ms), 第一个 tag 总是 0</td>
+</tr>
+<tr>
+<td>TimestampExtended</td>
+<td>UI8</td>
+<td>Timestamp 的高 8 位. 扩展 Timestamp 为 SI32 类型</td>
+</tr>
+<tr>
+<td>StreamID</td>
+<td>UI24</td>
+<td>总是 0, 至此为 11 bytes</td>
+</tr>
+<tr>
+<td>AudioTagHeader</td>
+<td></td>
+<td>IF TagType == 0x08</td>
+</tr>
+<tr>
+<td>VideoTagHeader</td>
+<td></td>
+<td>IF TagType == 0x09</td>
+</tr>
+<tr>
+<td>EncryptionHeader</td>
+<td></td>
+<td>IF Filter == 1</td>
+</tr>
+<tr>
+<td>FilterParams</td>
+<td></td>
+<td>IF Filter == 1</td>
+</tr>
+<tr>
+<td>Data</td>
+<td></td>
+<td>AUDIODATA 或者 VIDEODATA 或者 SCRIPTDATA</td>
+</tr>
+</tbody>
+</table>
+<p>Timestamp 和 TimestampExtended 组成了这个 TAG 包数据的 PTS 信息, PTS = Timestamp | TimestampExtended &laquo; 24.</p>
+<h3 id="audiotag-e42">AudioTag (E.4.2)</h3>
+<p>由于 AAC 编码的特殊性, 这里着重说明了 AAC 编码的 Tag 格式.</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Audio Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>AudioTagHeader</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SoundFormat</td>
+<td>UB[4]</td>
+<td>音频编码格式. 2 = MP3, 10 = AAC, 11 = Speex</td>
+</tr>
+<tr>
+<td>SoundRate</td>
+<td>UB[2]</td>
+<td>采样率. 0 = 5.5 kHz, 1 = 11 kHz, 2 = 22 kHz, 3 = 44 kHz</td>
+</tr>
+<tr>
+<td>SoundSize</td>
+<td>UB[1]</td>
+<td>采样大小. 0 = 8-bit, 1 = 16-bit</td>
+</tr>
+<tr>
+<td>SoundType</td>
+<td>UB[1]</td>
+<td>音频声道数. 0 = Mono, 1 = Stereo</td>
+</tr>
+<tr>
+<td>AACPacketType</td>
+<td>UI8</td>
+<td>只有当 SoundFormat 为 10 时, 才有该字段. 0 = AAC sequence header, 1 = AAC raw</td>
+</tr>
+<tr>
+<td>AACAUDIODATA</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Data</td>
+<td>AudioSpecificConfig</td>
+<td>IF AACPacketType == 0, 包含着一些更加详细音频的信息</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>Raw AAC frame data in UI8 [n]</td>
+<td>IF AACPacketType == 1, audio payload, n = [AAC Raw data length] - ([has CRC] ? 9 : 7)</td>
+</tr>
+</tbody>
+</table>
+<p>AudioTagHeader 的第一个字节, 也就是接跟着 StreamID 的 1 个字节包含了音频类型, 采样率等的基本信息.</p>
+<p>AudioTagHeader 之后跟着的就是 AUDIODATA 部分了. 但是, 这里有个特例, 如果音频格式(SoundFormat)是 AAC, AudioTagHeader 中会多出 1 个字节的数据 AACPacketType, 这个字段来表示 AACAUDIODATA 的类型: 0 = AAC sequence header, 1 = AAC raw.</p>
+<p>AudioSpecificConfig 结构描述非常复杂, 在标准文档中是用伪代码描述的, 这里先假定要编码的音频格式, 做一下简化.</p>
+<p>音频编码为: <code>AAC-LC</code>, 音频采样率为 44100.</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AudioSpecificConfig</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>audioObjectType</td>
+<td>UB[5]</td>
+<td>编码结构类型, AAC-LC 为 2</td>
+</tr>
+<tr>
+<td>samplingFrequencyIndex</td>
+<td>UB[4]</td>
+<td>音频采样率索引值, 44100 对应值 4</td>
+</tr>
+<tr>
+<td>channelConfiguration</td>
+<td>UB[4]</td>
+<td>音频输出声道, 2</td>
+</tr>
+<tr>
+<td>GASpecificConfig</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>frameLengthFlag</td>
+<td>UB[1]</td>
+<td>标志位, 用于表明 IMDCT 窗口长度, 0</td>
+</tr>
+<tr>
+<td>dependsOnCoreCoder</td>
+<td>UB[1]</td>
+<td>标志位, 表明是否依赖于 corecoder, 0</td>
+</tr>
+<tr>
+<td>extensionFlag</td>
+<td>UB[1]</td>
+<td>选择了 AAC-LC, 这里必须为 0</td>
+</tr>
+</tbody>
+</table>
+<p>在 FLV 的文件中, 一般情况下 AAC sequence header 这种包只出现1次, 而且是第一个 audio tag, 为什么需要这种 tag, 因为在做 FLV demux 的时候, 如果是 AAC 的音频, 需要在每帧 AAC ES 流前边添加 7 个字节 ADST 头, ADST 是解码器通用的格式, 也就是说 AAC 的纯 ES 流要打包成 ADST 格式的 AAC 文件, 解码器才能正常播放. 就是在打包 ADST 的时候, 需要 samplingFrequencyIndex 这个信息, samplingFrequencyIndex 最准确的信息是在 AudioSpecificConfig 中, 这样, 你就完全可以把 FLV 文件中的音频信息及数据提取出来, 送给音频解码器正常播放了.</p>
+<h3 id="videotag-e43">VideoTag (E.4.3)</h3>
+<p>由于 AVC(H.264) 编码的特殊性, 这里着重说明了 AVC(H.264) 编码的 Tag 格式.</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Video Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VideoTagHeader</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FrameType</td>
+<td>UB[4]</td>
+<td>1 = key frame, 2 = inter frame</td>
+</tr>
+<tr>
+<td>CodecID</td>
+<td>UB[4]</td>
+<td>7 = AVC</td>
+</tr>
+<tr>
+<td>AVCPacketType</td>
+<td>UI8</td>
+<td>IF CodecID == 7, 0 = AVC sequence header(AVCDecoderConfigurationRecord), 1 = One or more AVC NALUs (Full frames are required), 2 = AVC end of sequence</td>
+</tr>
+<tr>
+<td>CompositionTime</td>
+<td>SI24</td>
+<td>IF AVCPacketType == 1 Composition time offset ELSE 0</td>
+</tr>
+</tbody>
+</table>
+<p>VideoTagHeader 的第一个字节, 也就是接跟着 StreamID 的 1 个字节包含着视频帧类型及视频 CodecID 等最基本信息.</p>
+<p>VideoTagHeader 之后跟着的就是 VIDEODATA 部分了. 但是, 这里有个特例, 如果视频格式(CodecID)是 AVC, VideoTagHeader 会多出 4 个字节的信息.</p>
+<p>AVCDecoderConfigurationRecord 包含着是 H.264 解码相关比较重要的 SPS 和 PPS 信息, 在给 AVC 解码器送数据流之前一定要把 SPS 和 PPS 信息送出,否则的话, 解码器不能正常解码. 而且在解码器 stop 之后再次 start 之前, 如 seek, 快进快退状态切换等, 都需要重新送一遍 SPS 和 PPS 的信息. AVCDecoderConfigurationRecord 在 FLV 文件中一般情况也只出现 1 次, 也就是第一个 video tag.</p>
+<p>AVCDecoderConfigurationRecord 长度为 sizeof(UI8) * (11 + sps_size + pps_size)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AVCDecoderConfigurationRecord</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>configurationVersion</td>
+<td>UI8</td>
+<td>版本号, 1</td>
+</tr>
+<tr>
+<td>AVCProfileIndication</td>
+<td>UI8</td>
+<td>SPS[1]</td>
+</tr>
+<tr>
+<td>profileCompatibility</td>
+<td>UI8</td>
+<td>SPS[2]</td>
+</tr>
+<tr>
+<td>AVCLevelIndication</td>
+<td>UI8</td>
+<td>SPS[3]</td>
+</tr>
+<tr>
+<td>reserved</td>
+<td>UB[6]</td>
+<td>111111</td>
+</tr>
+<tr>
+<td>lengthSizeMinusOne</td>
+<td>UB[2]</td>
+<td>NALUnitLength - 1, 一般为 3</td>
+</tr>
+<tr>
+<td>reserved</td>
+<td>UB[3]</td>
+<td>111</td>
+</tr>
+<tr>
+<td>numberOfSequenceParameterSets</td>
+<td>UB[5]</td>
+<td>SPS 个数, 一般为 1</td>
+</tr>
+<tr>
+<td>sequenceParameterSetNALUnits</td>
+<td>UI8[sps_size + 2]</td>
+<td>sps_size(16bits) + sps(UI8[sps_size])</td>
+</tr>
+<tr>
+<td>numberOfPictureParameterSets</td>
+<td>UI8</td>
+<td>PPS 个数, 一般为 1</td>
+</tr>
+<tr>
+<td>pictureParameterSetNALUnits</td>
+<td>UI8[pps_size + 2]</td>
+<td>pps_size(16bits) + pps(UI8[pps_size])</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scriptdata-e44">SCRIPTDATA (E.4.4)</h3>
+<p>ScriptTagBody 内容用 AMF 编码</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCRIPTDATA</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ScriptTagBody</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>SCRIPTDATAVALUE</td>
+<td>Method or object name. SCRIPTDATAVALUE.Type = 2 (String)</td>
+</tr>
+<tr>
+<td>Vale</td>
+<td>SCRIPTDATAVALUE</td>
+<td>AMF arguments or object properties.</td>
+</tr>
+<tr>
+<td>SCRIPTDATAVALUE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Type</td>
+<td>UI8</td>
+<td>ScriptDataValue 的类型</td>
+</tr>
+<tr>
+<td>ScriptDataValue</td>
+<td>各种类型</td>
+<td>Script data 值</td>
+</tr>
+</tbody>
+</table>
+<p>一个 SCRIPTDATAVALUE 记录包含一个有类型的 ActionScript 值.</p>
+<h3 id="onmetadata-e5">onMetadata (E.5)</h3>
+<p>FLV metadata object 保存在 SCRIPTDATA 中, 叫 onMetaData. 不同的软件生成的 FLV 的 properties 不同.</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onMetaData</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>audiocodecid</td>
+<td>Number</td>
+<td>Audio codec ID used in the file</td>
+</tr>
+<tr>
+<td>audiodatarate</td>
+<td>Number</td>
+<td>Audio bit rate in kilobits per second</td>
+</tr>
+<tr>
+<td>audiodelay</td>
+<td>Number</td>
+<td>Delay introduced by the audio codec in seconds</td>
+</tr>
+<tr>
+<td>audiosamplerate</td>
+<td>Number</td>
+<td>Frequency at which the audio stream is replayed</td>
+</tr>
+<tr>
+<td>audiosamplesize</td>
+<td>Number</td>
+<td>Resolution of a single audio sample</td>
+</tr>
+<tr>
+<td>canSeekToEnd</td>
+<td>Boolean</td>
+<td>Indicating the last video frame is a key frame</td>
+</tr>
+<tr>
+<td>creationdate</td>
+<td>String</td>
+<td>Creation date and time</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>Number</td>
+<td>Total duration of the file in seconds</td>
+</tr>
+<tr>
+<td>filesize</td>
+<td>Number</td>
+<td>Total size of the file in bytes</td>
+</tr>
+<tr>
+<td>framerate</td>
+<td>Number</td>
+<td>Number of frames per second</td>
+</tr>
+<tr>
+<td>height</td>
+<td>Number</td>
+<td>Height of the video in pixels</td>
+</tr>
+<tr>
+<td>stereo</td>
+<td>Boolean</td>
+<td>Indicating stereo audio</td>
+</tr>
+<tr>
+<td>videocodecid</td>
+<td>Number</td>
+<td>Video codec ID used in the file (see E.4.3.1 for available CodecID values)</td>
+</tr>
+<tr>
+<td>videodatarate</td>
+<td>Number</td>
+<td>Video bit rate in kilobits per second</td>
+</tr>
+<tr>
+<td>width</td>
+<td>Number</td>
+<td>Width of the video in pixels</td>
+</tr>
+</tbody>
+</table>
+<h3 id="keyframes-索引信息">keyframes 索引信息</h3>
+<p>官方的文档中并没有对 keyframes index 做描述, 但是, flv 的这种结构每个 tag 又不像 TS 有同步头, 如果没有 keyframes index 的话, seek 及快进快退的效果会非常差, 因为需要一个 tag 一个 tag 的顺序读取. 后来在做 flv 文件合成的时候, 发现网上有的 flv 文件将 keyframes 信息隐藏在 Script Tag 中. keyframes 几乎是一个非官方的标准, 也就是民间标准.</p>
+<p>两个常用的操作 metadata 的工具是 flvtool2 和 FLVMDI, 都是把 keyframes 作为一个默认的元信息项目. 在 FLVMDI 的
+<a href="http://www.buraks.com/flvmdi/" target="_blank" rel="noopener">主页</a>
+上有描述:</p>
+<pre><code>  keyframes: (Object) This object is added only if you specify the /k switch. 'keyframes' is known to FLVMDI and if /k switch is not specified, 'keyframes' object will be deleted.
+
+  'keyframes' object has 2 arrays: 'filepositions' and 'times'. Both arrays have the same number of elements, which is equal to the number of key frames in the FLV. Values in times array are in 'seconds'. Each correspond to the timestamp of the n'th key frame. Values in filepositions array are in 'bytes'. Each correspond to the fileposition of the nth key frame video tag (which starts with byte tag type 9).
+</code></pre>
+<p>也就是说 keyframes 中包含着 2 个内容 &lsquo;filepositions&rsquo; 和 &lsquo;times&rsquo; 分别指的是关键帧的文件位置和关键帧的 PTS. 通过 keyframes 可以建立起自己的 Index, 然后在 seek 和快进快退的操作中, 快速有效地跳转到你想要找的关键帧位置进行处理.</p>
+<h2 id="flv-分析工具">FLV 分析工具</h2>
+<ul>
+<li><a href="http://www.flvmeta.com/">http://www.flvmeta.com/</a></li>
+<li>yamdi: 将flv转成带索引的flv, <code>yamdi -i i.flv -o o.flv</code></li>
+<li>flvlib: <code>pip install flvlib</code>, 查看索引信息: <code>debug-flv --metadata file.flv</code></li>
+<li>flvcheck: <a href="http://www.adobe.com/products/adobe-media-server-family/tool-downloads.html">http://www.adobe.com/products/adobe-media-server-family/tool-downloads.html</a></li>
+</ul>
+<h2 id="http-flv">HTTP-FLV</h2>
+<p>HTTP-FLV, 即将音视频数据封装成 FLV, 然后通过 HTTP 协议传输给客户端.</p>
+<p>这里首先要说一下, HLS 其实是一个 &ldquo;文本协议&rdquo;, 而并不是一个流媒体协议. 那么, 什么样的协议才能称之为流媒体协议呢?</p>
+<p>流(stream): 数据在网络上按时间先后次序传输和播放的连续音/视频数据流. 之所以可以按照顺序传输和播放连续是因为在类似  RTMP, FLV 协议中, 每一个音视频数据都被封装成了包含时间戳信息头的数据包. 而当播放器拿到这些数据包解包的时候能够根据时间戳信息把这些音视频数据和之前到达的音视频数据连续起来播放. MP4, MKV 等等类似这种封装, 必须拿到完整的音视频文件才能播放, 因为里面的单个音视频数据块不带有时间戳信息, 播放器不能将这些没有时间戳信息数据块连续起来, 所以就不能实时的解码播放.</p>
+<h3 id="延迟分析">延迟分析</h3>
+<p>理论上(除去网络延迟外), FLV 可以做到仅仅一个音视频 tag 的延迟.</p>
+<h3 id="相比-rtmp-的优点">相比 RTMP 的优点:</h3>
+<ul>
+<li>可以在一定程度上避免防火墙的干扰 (例如, 有的机房只允许 80 端口通过).</li>
+<li>可以很好的兼容 HTTP 302 跳转, 做到灵活调度.</li>
+<li>可以使用 HTTPS 做加密通道.</li>
+<li>很好的支持移动端(Android, IOS).</li>
+</ul>
+<h3 id="抓包分析">抓包分析</h3>
+<p>打开网宿的 HTTP-FLV 流:</p>
+<p><a href="http://175.25.168.16/pl3.live.panda.tv/live_panda/d4e0a83a7e0b0c6e4c5d03774169fa3e.flv?wshc_tag=0&amp;wsts_tag=57e233b1&amp;wsid_tag=6a27c14e&amp;wsiphost=ipdbm">http://175.25.168.16/pl3.live.panda.tv/live_panda/d4e0a83a7e0b0c6e4c5d03774169fa3e.flv?wshc_tag=0&amp;wsts_tag=57e233b1&amp;wsid_tag=6a27c14e&amp;wsiphost=ipdbm</a></p>
+<pre><code>HTTP/1.1 200 OK
+Expires: Wed, 21 Sep 2016 07:16:02 GMT
+Cache-Control: no-cache
+Content-Type: video/x-flv
+Pragma: no-cache
+Via: 1.1 yc16:3 (Cdn Cache Server V2.0)
+Connection: close
+</code></pre>
+<p>发现响应头中出现 <code>Connection: close</code> 的字段, 表示网宿采用的是短连接, 则直接可以通过服务器关闭连接来确定消息的传输长度.</p>
+<p>如果 HTTP Header 中有 Content-Length, 那么这个 Content-Length 既表示实体长度, 又表示传输长度. 而 HTTP-FLV 这种流, 服务器是不可能预先知道内容大小的, 这时就可以使用 <code>Transfer-Encoding: chunked</code> 模式来传输数据了.</p>
+<p>如下的响应就是采用的Chunked的方式进行的传输的响应头:</p>
+<pre><code>HTTP/1.1 200 OK
+Server: openresty
+Date: Wed, 21 Sep 2016 07:38:01 GMT
+Content-Type: video/x-flv
+Transfer-Encoding: chunked
+Connection: close
+Expires: Wed, 21 Sep 2016 07:38:00 GMT
+Cache-Control: no-cache
+</code></pre>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/zh/post/http-flv-explained/&amp;text=%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%20HTTP-FLV%20%e8%af%a6%e8%a7%a3" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/zh/post/http-flv-explained/&amp;t=%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%20HTTP-FLV%20%e8%af%a6%e8%a7%a3" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%20HTTP-FLV%20%e8%af%a6%e8%a7%a3&amp;body=/zh/post/http-flv-explained/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/zh/post/http-flv-explained/&amp;title=%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%20HTTP-FLV%20%e8%af%a6%e8%a7%a3" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%20HTTP-FLV%20%e8%af%a6%e8%a7%a3%20/zh/post/http-flv-explained/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/zh/post/http-flv-explained/&amp;title=%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%20HTTP-FLV%20%e8%af%a6%e8%a7%a3" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="/zh/authors/admin/avatar_huc6dec3557548ee034c3f8b409a56beb4_9195_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Akagi201</a></h5>
+      <h6 class="card-subtitle">Professor of Securities development</h6>
+      <p class="card-text">My research interests include blockchain, high frequency trading, crawler and home automation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:akagi201@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<script src="https://utteranc.es/client.js"
+        repo=Akagi201/akagi201.github.io
+        issue-term="pathname"
+        label="Comment"
+        theme=github-dark-orange
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">下一页</div>
+    <a href="/zh/post/websocket-mse/" rel="next">HTML5 直播协议之 WebSocket 和 MSE</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">上一页</div>
+    <a href="/zh/post/mqkv-a-general-distributed-storage-based-on-distributed-message-queue/" rel="prev">mqkv 一个通用的基于分布式消息队列的分布式存储</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/zh/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"没有找到结果","placeholder":"搜索...","results":"搜索结果"};
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "出版物",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.a0d331bcd05dbe8b31e244f796710f08.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

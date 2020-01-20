@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.7.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Akagi201">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="我是从大二开始使用linux系统的, 当时除了玩单片机之外, 所有工作完全在linux完成, 克服了种种&quot;困难&rdquo;. 不过现在看">
+
+  
+  <link rel="alternate" hreflang="zh-Hans" href="/zh/post/learning-kernel/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(339, 90%, 68%)">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46663685-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-46663685-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/zh/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/zh/post/learning-kernel/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@Akagi201">
+  <meta property="twitter:creator" content="@Akagi201">
+  
+  <meta property="og:site_name" content="赤木酱">
+  <meta property="og:url" content="/zh/post/learning-kernel/">
+  <meta property="og:title" content="Learning Kernel | 赤木酱">
+  <meta property="og:description" content="我是从大二开始使用linux系统的, 当时除了玩单片机之外, 所有工作完全在linux完成, 克服了种种&quot;困难&rdquo;. 不过现在看"><meta property="og:image" content="/img/akhead.png">
+  <meta property="twitter:image" content="/img/akhead.png"><meta property="og:locale" content="zh-Hans">
+  
+    
+      <meta property="article:published_time" content="2014-05-01T06:14:08&#43;08:00">
+    
+    <meta property="article:modified_time" content="2014-05-01T06:14:08&#43;08:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/zh/post/learning-kernel/"
+  },
+  "headline": "Learning Kernel",
+  
+  "datePublished": "2014-05-01T06:14:08+08:00",
+  "dateModified": "2014-05-01T06:14:08+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Akagi201"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Akagi201",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "img//"
+    }
+  },
+  "description": "我是从大二开始使用linux系统的, 当时除了玩单片机之外, 所有工作完全在linux完成, 克服了种种\u0026quot;困难\u0026rdquo;. 不过现在看"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Learning Kernel | 赤木酱</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="dark">
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#about"><span>关于我</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#posts"><span>博客</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Learning Kernel</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    2014-05-01
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    4 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>我是从大二开始使用linux系统的, 当时除了玩单片机之外, 所有工作完全在linux完成, 克服了种种&quot;困难&rdquo;. 不过现在看来自己除了佩服自己当时的热情之外, 就只觉得自己太幼稚了. &ldquo;在正确的时间做正确的事情, 用正确的工具做正确的事情.&rdquo; 就像以前一直很偏爱C语言一样, 一定要写成内核模块, 内核线程&hellip; 现在自己变得更加聪明了.</p>
+<p>我大学期间一直没有机会碰linux内核, 只有在大三下的时候, 在实验室玩ARM开发板, 才知道, 原来linux内核做了这么多的工作, 一个hello world能够轻松的运行起来, 背后有多少的东西在默默无闻的工作着.</p>
+<p>毕业后我按照自己的规划找了一份嵌入式软件开发的工作. 公司也还算给力, 给了我足够的时间来学习. 我当时是从驱动入手的, 主要看了一本书和一个英文文档, 分别是LDD3和LKMPG. 这本书我前段时间又看了一遍, 觉得这个不适合一个新手看, 难怪我当初看的那么累, 原因有是作者在书内容里无缝地介绍了软件架构, 代码复用等等对于新手来说高级的东西, 这些应该属于软件工程的内容, 这样当然有好处, 但是给人感觉就是复杂, 相比之下国内的书会简单直接很多. 另外LDD3是基于2.6内核的API写的驱动, 已经有大牛移植到linux3.x上面了.</p>
+<p>其实, 内核代码发展很快, 差几个版本基本就面目全非了, 所以, 要多看, 多思考, 有整体把握. 这样, 过段时间拿到最新的代码了, 自己也有能力跟踪进去.</p>
+<p>最近, 在linux社区上面看了几篇有趣的东西, 在HN上貌似也火了一下, 所以, 分享出来给大家玩下.</p>
+<h2 id="eudyptula">Eudyptula</h2>
+<p>模仿Matasano Crypto Challenge(集中48小时的练习, 培训参与者密码系统如何建立以及如何被攻击), 面向linux内核的一系列编程练习, 任务难度逐渐增加. 一切是从给little@eudyptula-challenge.org发一封邮件说你要加入开始的. 由于实际的内核开发就是通过邮件列表沟通的, 所以, 必须要熟悉邮件工具是必备技能.</p>
+<p>PS: 由于我发了邮件他还没回我, 呵呵, 后面等做了几个任务之后再跟大家分享一下.</p>
+<h2 id="kernel-101">Kernel 101</h2>
+<p>这篇文章最近在HN上比较火, 教你从0开始写一个kernel, 当然功能仅仅是打印一行信息而已. 对于新手来说还是比较好的学习材料. 源码就2个文件, 一段汇编主要功能就是跳转到C程序的kmain函数; 一段C代码, 将显存内容清空并赋值为一段字符串.</p>
+<p>其中几个关键知识点记录一下:</p>
+<ol>
+<li>x86的CPU启动后从地址[0xFFFFFFF0]处开始执行, 这个是设计CPU时写死的. 从芯片手册上可以查到. 下面提到的一些地址都是芯片手册中规定统一的, 所以x86架构才能够通用, 各种OS都能安装, 不需要繁琐的移植工作.</li>
+<li>启动流程: 上电 -&gt; CPU[0xFFFFFFF0] -&gt; 跳转到内存中BIOS代码 -&gt; 根据BIOS配置将物理设备第一个扇区的代码copy到物理内存的[0x7c00]位置(即boot loader的代码) -&gt; bootloader将内核代码加载到物理内存[0x100000](x86 CPU宏内核代码起始地址, 也就是后面我们编写的汇编程序的链接地址).</li>
+<li>汇编代码中使用了一些nasm的伪指令, 所以, um, 看注释就好.</li>
+<li>通常的内核开发还需要提供一个根文件系统文件的, 这个简单例子是不包含文件系统的.</li>
+<li>grub2下添加引导项的方法, 成败在于此, 需要注意你的/boot分区是否是一个独立分区, 如果不是独立分区那么ok, 安装作者的文章搞起; 如果你像我一样安装系统时候将/boot独立一个256M空间的分区, 那么要内核文件位置使用相对/boot相对地址. 另外注意, 要使用msdos2, 否则会失败.</li>
+</ol>
+<pre><code>$sudo vim /boot/grub/grub.conf
+
+//在文件中其他引导项下面添加如下
+menuentry 'Akagi201 Lovely Kernel' {
+    set root='hd0,msdos2'
+    multiboot /kernel-7001 ro
+}
+</code></pre>
+<h2 id="what-my-new-born-kernel-says">What my new-born kernel says</h2>
+<p>um, 我改了一下颜色, 跟字符内容, 哈哈, 没啥技术含量啦!</p>
+<p><img src="http://akagi201.qiniudn.com/akgrub.png" alt="akgrub"></p>
+<p><img src="http://akagi201.qiniudn.com/akkernel.png" alt="akkernel"></p>
+<h2 id="links">links</h2>
+<ul>
+<li>The Linux Kernel Module Programming Guide: <a href="http://tldp.org/LDP/lkmpg/2.6/html/">http://tldp.org/LDP/lkmpg/2.6/html/</a> 看完这个你就能让内核输出hello world啦.</li>
+<li>LDD3-examples-3.x: <a href="https://github.com/duxing2007/ldd3-examples-3.x">https://github.com/duxing2007/ldd3-examples-3.x</a> 你应该会注意到不同的branch对应不同的内核版本, 很赞吧!</li>
+<li>kernel 101 on HN: <a href="https://news.ycombinator.com/item?id=7588205">https://news.ycombinator.com/item?id=7588205</a> 有人还做了FUSE版本, 作者也要出ARM版本了, 可以关注下, 上面作者有更多的细节解释.</li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/zh/post/learning-kernel/&amp;text=Learning%20Kernel" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/zh/post/learning-kernel/&amp;t=Learning%20Kernel" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Learning%20Kernel&amp;body=/zh/post/learning-kernel/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/zh/post/learning-kernel/&amp;title=Learning%20Kernel" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Learning%20Kernel%20/zh/post/learning-kernel/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/zh/post/learning-kernel/&amp;title=Learning%20Kernel" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="/zh/authors/admin/avatar_huc6dec3557548ee034c3f8b409a56beb4_9195_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Akagi201</a></h5>
+      <h6 class="card-subtitle">Professor of Securities development</h6>
+      <p class="card-text">My research interests include blockchain, high frequency trading, crawler and home automation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:akagi201@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<script src="https://utteranc.es/client.js"
+        repo=Akagi201/akagi201.github.io
+        issue-term="pathname"
+        label="Comment"
+        theme=github-dark-orange
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">下一页</div>
+    <a href="/zh/post/wireless-device/" rel="next">无线基础之无线网卡</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">上一页</div>
+    <a href="/zh/post/protect-your-privacy-with-pgp/" rel="prev">保护你的隐私, 从PGP开始</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/zh/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"没有找到结果","placeholder":"搜索...","results":"搜索结果"};
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "出版物",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.a0d331bcd05dbe8b31e244f796710f08.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.7.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Akagi201">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="HLS 概述 HLS 全称是 HTTP Live Streaming, 是一个由 Apple 公司实现的基于 HTTP 的媒体流传输协议. 他跟 DASH 协议的原理非常类似. 通过将整条流切割成一个小的可以通过 HTTP 下载的媒体文件">
+
+  
+  <link rel="alternate" hreflang="zh-Hans" href="/zh/post/hls-explained/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(339, 90%, 68%)">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46663685-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-46663685-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/zh/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/zh/post/hls-explained/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@Akagi201">
+  <meta property="twitter:creator" content="@Akagi201">
+  
+  <meta property="og:site_name" content="赤木酱">
+  <meta property="og:url" content="/zh/post/hls-explained/">
+  <meta property="og:title" content="HLS 协议详解 | 赤木酱">
+  <meta property="og:description" content="HLS 概述 HLS 全称是 HTTP Live Streaming, 是一个由 Apple 公司实现的基于 HTTP 的媒体流传输协议. 他跟 DASH 协议的原理非常类似. 通过将整条流切割成一个小的可以通过 HTTP 下载的媒体文件"><meta property="og:image" content="/img/akhead.png">
+  <meta property="twitter:image" content="/img/akhead.png"><meta property="og:locale" content="zh-Hans">
+  
+    
+      <meta property="article:published_time" content="2017-03-22T17:04:50&#43;08:00">
+    
+    <meta property="article:modified_time" content="2017-03-22T17:04:50&#43;08:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/zh/post/hls-explained/"
+  },
+  "headline": "HLS 协议详解",
+  
+  "datePublished": "2017-03-22T17:04:50+08:00",
+  "dateModified": "2017-03-22T17:04:50+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Akagi201"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Akagi201",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "img//"
+    }
+  },
+  "description": "HLS 概述 HLS 全称是 HTTP Live Streaming, 是一个由 Apple 公司实现的基于 HTTP 的媒体流传输协议. 他跟 DASH 协议的原理非常类似. 通过将整条流切割成一个小的可以通过 HTTP 下载的媒体文件"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>HLS 协议详解 | 赤木酱</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="dark">
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#about"><span>关于我</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#posts"><span>博客</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>HLS 协议详解</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    2017-03-22
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    7 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="hls-概述">HLS 概述</h2>
+<p>HLS 全称是 HTTP Live Streaming, 是一个由 Apple 公司实现的基于 HTTP 的媒体流传输协议. 他跟 DASH 协议的原理非常类似. 通过将整条流切割成一个小的可以通过 HTTP 下载的媒体文件, 然后提供一个配套的媒体列表文件, 提供给客户端, 让客户端顺序地拉取这些媒体文件播放, 来实现看上去是在播放一条流的效果.</p>
+<p>由于传输层协议只需要标准的 HTTP 协议, HLS 可以方便的透过防火墙或者代理服务器, 而且可以很方便的利用 CDN 进行分发加速, 并且客户端实现起来也很方便.</p>
+<p>HLS 目前广泛地应用于点播和直播领域.</p>
+<p>在 HTML5 页面上使用 HLS 非常简单:</p>
+<p>直接:</p>
+<pre><code>&lt;video src=&quot;example.m3u8&quot; controls&gt;&lt;/video&gt;
+</code></pre>
+<p>或者:</p>
+<pre><code>&lt;video controls&gt;
+    &lt;source src=&quot;example.m3u8&quot;&gt;&lt;/source&gt;
+&lt;/video&gt;
+</code></pre>
+<p>下面, 我将会概括性地介绍 HLS 协议的方方面面(暂时不包括 AES 加密部分的内容), 配合 HLS 的 RFC 食用效果更佳.</p>
+<h2 id="hls-协议详解">HLS 协议详解</h2>
+<p><img src="http://akagi201.qiniudn.com/hls_arch.png" alt="hls_arch"></p>
+<p>上面是 HLS 整体架构图, 可以看出, 总共有三个部分: Server, CDN, Client.</p>
+<p>其实, HLS 协议的主要内容是关于 M3U8 这个文本协议的, 其实生成与解析都非常简单. 为了更加直接地说明这一点, 我下面举两个简单的例子:</p>
+<p>简单的 Media Playlist:</p>
+<pre><code>#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:8
+#EXT-X-MEDIA-SEQUENCE:2680
+
+#EXTINF:7.975,
+https://priv.example.com/fileSequence2680.ts
+#EXTINF:7.941,
+https://priv.example.com/fileSequence2681.ts
+#EXTINF:7.975,
+https://priv.example.com/fileSequence2682.ts
+</code></pre>
+<p>包含多种比特率的 Master Playlist:</p>
+<pre><code>#EXTM3U
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1280000
+http://example.com/low.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2560000
+http://example.com/mid.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=7680000
+http://example.com/hi.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=65000,CODECS=&quot;mp4a.40.5&quot;
+http://example.com/audio-only.m3u8
+</code></pre>
+<ul>
+<li>HLS 通过 URI(RFC3986) 指向的一个 Playlist 来表示一个媒体流.</li>
+<li>一个 Playlist 可以是一个 Media Playlist 或者 Master Playlist, 使用 UTF-8 编码的文本文件, 包含一些 URI 跟描述性的 tags.</li>
+<li>一个 Media Playlist 包含一个 Media Segments 列表,当顺序播放时, 能播放整个完整的流.</li>
+<li>要想播放这个 Playlist, 客户端需要首先下载他, 然后播放里面的每一个 Media Segment.</li>
+<li>更加复杂的情况是, Playlist 是一个 Master Playlist, 包含一个 Variant Stream 集合, 通常每个 Variant Stream 里面是同一个流的多个不同版本(如: 分辨率, 码率不同).</li>
+</ul>
+<h3 id="hls-media-segments">HLS Media Segments</h3>
+<ul>
+<li>每一个 Media Segment 通过一个 URI 指定, 可能包含一个 byte range.</li>
+<li>每一个 Media Segment 的 duration 通过 <code>EXTINF</code> tag 指定.</li>
+<li>每一个 Media Segment 有一个唯一的整数 Media Segment Number.</li>
+<li>有些媒体格式需要一个 format-specific sequence 来初始化一个 parser, 在 Media Segment 被 parse 之前. 这个字段叫做 Media Initialization Section, 通过 <code>EXT-X-MAP</code> tag 来指定.</li>
+</ul>
+<h4 id="支持的-media-segment-格式">支持的 Media Segment 格式</h4>
+<h5 id="mpeg-2-transport-streams">MPEG-2 Transport Streams</h5>
+<ul>
+<li>即最常见的 TS 文件.</li>
+<li>RFC: ISO_13818.</li>
+<li>Media Initialization Section: PAT(Program Association Table) 跟 PMT(Program Map Table).</li>
+<li>每个 TS segment 必须值含一个 MPEG-2 Program.</li>
+<li>每一个 TS segment 包含一个 PAT 和 PMT, 最好在 segment 的开始处, 或者通过一个 <code>EXT-X-MAP</code> tag 来指定.</li>
+</ul>
+<h5 id="fragmented-mpeg-4">Fragmented MPEG-4</h5>
+<ul>
+<li>即常提到的 fMP4.</li>
+<li>RFC: ISOBMFF.</li>
+<li>Media Initialization Section: <code>ftyp</code> box(包含一个高于 <code>ios6</code> 的 brand), <code>ftyp</code> box 必须紧跟在 <code>moov</code> box 之后. <code>moov</code> box 必须包含一个 <code>trak</code> box(对于每个 fMP4 segment 里面的 <code>traf</code> box, 包含匹配的 <code>track_ID</code>). 每个 <code>trak</code> box 应该包含一个 sample table, 但是他的 sample count 必须为 0. <code>mvhd</code> box 跟 <code>tkhd</code> 的 duration 必须为 0. <code>mvex</code> box 必须跟在上一个 <code>trak</code> box 后面.</li>
+<li>不像普通的 MP4 文件包含一个 <code>moov</code> box(包含 sample tables) 和一个 <code>mdat</code> box(包含对应的 samples), 一个 fMP4 包含一个 <code>moof</code> box (包含 sample table 的子集), 和一个 <code>mdat</code> box(包含对应的 samples).</li>
+<li>在每一个 fMP4 segment 里面, 每一个 <code>traf</code> box 必须包含一个 <code>tfdt</code> box, fMP4 segment 必须使用 movie-fragment relative addressing. fMP4 segments 绝对不能使用外部的 data references.</li>
+<li>每一个 fMP4 segment 必须有一个 <code>EXT-X-MAP</code> tag.</li>
+</ul>
+<h5 id="packed-audio">Packed Audio</h5>
+<ul>
+<li>一个 Packed Audio Segment 包含编码的 audio samples 和 ID3 tags. 简单的打包到一起, 包含最小的 framing, 并且没有 per-sample timestamp.</li>
+<li>支持的 Packed Audio: AAC with ADTS
+framing [ISO_13818_7], MP3 [ISO_13818_3], AC-3 [AC_3], Enhanced
+AC-3 [AC_3].</li>
+<li>一个 Packed Audio Segment 没有 Media Initialization Section.</li>
+<li>每一个 Packed Audio Segment 必须在他的第一个 sample 指定 timestamp 通过一个 ID3 PRIV tag.</li>
+<li>ID3 PRIV owner identifier 必须是 <code>com.apple.streaming.transportStreamTimestamp</code>.</li>
+<li>ID3 payload 必须是一个 33-bit MPEG-2 Program Elementary Stream timestamp 的大端 eight-octet number, 高 31 为设置为 0.</li>
+</ul>
+<h5 id="webvtt">WebVTT</h5>
+<ul>
+<li>一个 WebVTT Segment 是一个 WebVTT 文件的一个 section, WebVTT Segment 包含 subtitles.</li>
+<li>Media Initialization Section: WebVTT header.</li>
+<li>每一个 WebVTT Segment 必须有以一个 WebVTT header 开始, 或者有一个 <code>EXT-X-MAP</code> tag 来指定.</li>
+<li>每一个 WebVTT header 应该有一个 <code>X-TIMESTAMP-MAP</code> 来保证音视频同步.</li>
+</ul>
+<h3 id="hls-playlists">HLS Playlists</h3>
+<ul>
+<li>Playlist 文件的格式是起源于 M3U, 并且继承两个 tag: <code>EXTM3U</code> 和 <code>EXTINF</code></li>
+<li>下面的 tags 通过 <code>BNF-style</code> 语法来指定.</li>
+<li>一个 Playlist 文件必须通过 URI(.m3u8 或 m3u) 或者 HTTP Content-Type 来识别(application/vnd.apple.mpegurl 或 audio/mpegurl).</li>
+<li>换行符可以用 <code>\n</code> 或者 <code>\r\n</code>.</li>
+<li>以 <code>#</code> 开头的是 tag 或者注释, 以 <code>#EXT</code> 开头的是 tag, 其余的为注释, 在解析时应该忽略.</li>
+<li>Playlist 里面的 URI 可以用绝对地址或者相对地址, 如果使用相对地址, 那么是相对于 Playlist 文件的地址.</li>
+</ul>
+<h4 id="attribute-lists">Attribute Lists</h4>
+<ul>
+<li>有的 tags 的值是 Attribute Lists.</li>
+<li>一个 Attribute List 是一个用逗号分隔的 attribute/value 对列表.</li>
+<li>格式为: <code>AttributeName=AttributeValue</code>.</li>
+</ul>
+<h4 id="basic-tags">Basic Tags</h4>
+<p>Basic Tags 可以用在 Media Playlist 和 Master Playlist 里面.</p>
+<ul>
+<li><code>EXTM3U</code>: 必须在文件的第一行, 标识是一个 Extended M3U Playlist 文件.</li>
+<li><code>EXT-X-VERSION</code>: 表示 Playlist 兼容的版本.</li>
+</ul>
+<h4 id="media-segment-tags">Media Segment Tags</h4>
+<p>每一个 Media Segment 通过一系列的 Media Segment tags 跟一个 URI 来指定. 有的 Media Segment tags 只应用与下一个 segment, 有的则是应用所有下面的 segments. 一个 Media Segment tag 只能出现在 Media Playlist 里面.</p>
+<ul>
+<li><code>EXTINF</code>: 用于指定 Media Segment 的 duration</li>
+<li><code>EXT-X-BYTERANGE</code>: 用于指定 URI 的 <code>sub-range</code></li>
+<li><code>EXT-X-DISCONTINUITY</code>: 表示不连续.</li>
+<li><code>EXT-X-KEY</code>: 表示 Media Segment 已加密, 该值用于解密.</li>
+<li><code>EXT-X-MAP</code>: 用于指定 Media Initialization Section.</li>
+<li><code>EXT-X-PROGRAM-DATE-TIME</code>: 和 Media Segment 的第一个 sample 一起来确定时间戳.</li>
+<li><code>EXT-X-DATERANGE</code>: 将一个时间范围和一组属性键值对结合到一起.</li>
+</ul>
+<h4 id="media-playlist-tags">Media Playlist Tags</h4>
+<p>Media Playlist tags 描述 Media Playlist 的全局参数. 同样地, Media Playlist tags 只能出现在 Media Playlist 里面.</p>
+<ul>
+<li><code>EXT-X-TARGETDURATION</code>: 用于指定最大的 Media Segment duration.</li>
+<li><code>EXT-X-MEDIA-SEQUENCE</code>: 用于指定第一个 Media Segment 的 Media Sequence Number.</li>
+<li><code>EXT-X-DISCONTINUITY-SEQUENCE</code>: 用于不同 Variant Stream 之间同步.</li>
+<li><code>EXT-X-ENDLIST</code>: 表示结束.</li>
+<li><code>EXT-X-PLAYLIST-TYPE</code>: 可选, 指定整个 Playlist 的类型.</li>
+<li><code>EXT-X-I-FRAMES-ONLY</code>: 表示每个 Media Segment 描述一个单一的 I-frame.</li>
+</ul>
+<h4 id="master-playlist-tags">Master Playlist Tags</h4>
+<p>Master Playlist tags 定义 Variant Streams, Renditions 和 其他显示的全局参数. Master Playlist tags 只能出现在 Master Playlist 中.</p>
+<ul>
+<li><code>EXT-X-MEDIA</code>: 用于关联同一个内容的多个 Media Playlist 的多种 renditions.</li>
+<li><code>EXT-X-STREAM-INF</code>: 用于指定一个 Variant Stream.</li>
+<li><code>EXT-X-I-FRAME-STREAM-INF</code>: 用于指定一个 Media Playlist 包含媒体的 I-frames.</li>
+<li><code>EXT-X-SESSION-DATA</code>: 存放一些 session 数据.</li>
+<li><code>EXT-X-SESSION-KEY</code>: 用于解密.</li>
+</ul>
+<h4 id="media-or-master-playlist-tags">Media or Master Playlist Tags</h4>
+<p>这里的 tags 可以出现在 Media Playlist 或者 Master Playlist 中. 但是如果同时出现在同一个 Master Playlist 和 Media Playlist 中时, 必须为相同值.</p>
+<ul>
+<li><code>EXT-X-INDEPENDENT-SEGMENTS</code>: 表示每个 Media Segment 可以独立解码.</li>
+<li><code>EXT-X-START</code>: 标识一个优选的点来播放这个 Playlist.</li>
+</ul>
+<h3 id="服务器端与客户端逻辑">服务器端与客户端逻辑</h3>
+<p>以下流程仅供参考, 其实不同的播放器客户端以及服务器端的拉取规则都有很多细节差异.</p>
+<h4 id="服务器端逻辑">服务器端逻辑</h4>
+<ol>
+<li>将媒体源切片成 Media Segment, 应该优先从可以高效解码的时间点来进行切片(如: I-frame).</li>
+<li>为每一个 Media Segment 生成 URI.</li>
+<li>Server 需要支持 &ldquo;gzip&rdquo; 方式压缩文本内容.</li>
+<li>创建一个 Media Playlist 索引文件, <code>EXT-X-VERSION</code> 不要高于他需要的版本, 来提供更好的兼容性.</li>
+<li>Server 不能随便修改 Media Playlist, 除了 Append 文本到文件末尾, 按顺序移除 Media Segment URIs, 增长 <code>EXT-X-MEDIA-SEQUENCE</code> 和 <code>EXT-X-DISCONTINUITY-SEQUENCE</code>, 添加 <code>EXT-X-ENDLIST</code> 到文件尾.</li>
+<li>在最后添加 <code>EXT-X-ENDLIST</code> tag, 来减少 Client reload Playlist 的次数.</li>
+<li>注意点播与直播服务器不同的地方是, 直播的 m3u8 文件会不断更新, 而点播的 m3u8 文件是不会变的, 只需要客户端在开始时请求一次即可.</li>
+</ol>
+<h4 id="客户端逻辑">客户端逻辑</h4>
+<ol>
+<li>客户端通过 URI 获取 Playlist. 如果是 Master Playlist, 客户端可以选择一个 Variant Stream 来播放.</li>
+<li>客户端检查 <code>EXT-X-VERSION</code> 版本是否满足.</li>
+<li>客户端应该忽略不可识别的 tags, 忽略不可识别的属性键值对.</li>
+<li>加载 Media Playlist file.</li>
+<li>播放 Media Playlist file.</li>
+<li>重加载 Media Playlist file.</li>
+<li>决定下一次要加载的 Media Segment.</li>
+</ol>
+<h2 id="hls-的优势">HLS 的优势</h2>
+<ul>
+<li>客户端支持简单, 只需要支持 HTTP 请求即可, HTTP 协议无状态, 只需要按顺序下载媒体片段即可.</li>
+<li>使用 HTTP 协议网络兼容性好, HTTP 数据包也可以方便地通过防火墙或者代理服务器, CDN 支持良好.</li>
+<li>Apple 的全系列产品支持, 由于 HLS 是苹果提出的, 所以在 Apple 的全系列产品包括 iphone, ipad, safari 都不需要安装任何插件就可以原生支持播放 HLS, 现在, Android 也加入了对 HLS 的支持.</li>
+<li>自带多码率自适应, Apple 在提出 HLS 时, 就已经考虑了码流自适应的问题.</li>
+</ul>
+<h2 id="hls-的劣势">HLS 的劣势</h2>
+<ul>
+<li>相比 RTMP 这类长连接协议, 延时较高, 难以用到互动直播场景.</li>
+<li>对于点播服务来说, 由于 TS 切片通常较小, 海量碎片在文件分发, 一致性缓存, 存储等方面都有较大挑战.</li>
+</ul>
+<h2 id="改进的-hls-技术">改进的 HLS 技术</h2>
+<p>由于客户端每次请求 TS 或 M3U8 有可能都是一个新的连接请求, 所以, 我们无法有效的标识客户端, 一旦出现问题, 基本无法有效的定位问题, 所以, 一般工业级的服务器都会对传统的 HLS 做一些改进.</p>
+<p>这里主要介绍网宿的 Variant HLS 与又拍云的 HLS+.</p>
+<h3 id="网宿的-variant-hls">网宿的 Variant HLS</h3>
+<p>首先, 我们可以下载一条网宿的 M3U8 文件:</p>
+<p><code>wget http://bililive.kksmg.com/hls/stvd6edb9a6_45b34047833af658bf4945a8/playlist.m3u8</code></p>
+<p>然后, 打开下载得到的 playlist 文件:</p>
+<pre><code>#EXTM3U
+#EXT-X-STREAM-INF:PROGRAM-ID=1, BANDWIDTH=781000
+http://bililive.kksmg.com/hls/stvd6edb9a6_45b34047833af658bf4945a8/playlist.m3u8?wsSession=0105cb4e8fe63bccab511a4a-149017212774715&amp;wsIPSercert=b80d38c068c9e3634a7ebb2f2bbf9b89&amp;wsMonitor=-1
+</code></pre>
+<p>可以看出这是一个 Master Playlist, 里面嵌套了一层 M3U8, 同时可以看出网宿采用 <code>wsSession</code> 来标识一条播放连接.</p>
+<h3 id="又拍云的-hls">又拍云的 HLS+</h3>
+<h4 id="variant-hls">Variant HLS</h4>
+<p>首先, 我们可以下载一条又拍云的 M3U8 文件:</p>
+<p><code>wget http://uplive.b0.upaiyun.com/live/loading.m3u8</code></p>
+<p>然后, 打开下载得到的 playlist 文件:</p>
+<pre><code>#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-ALLOW-CACHE:YES
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-TARGETDURATION:1
+#EXTINF:0.998, no desc
+http://183.158.35.12:8080/uplive.b0.upaiyun.com/live/loading-0.ts?shp_uuid=e4989f34fcab282e21ef1fd2980284cb&amp;shp_ts=1490172420851&amp;shp_cid=17906&amp;shp_pid=3370578&amp;shp_sip0=127.0.0.1&amp;shp_sip1=183.158.35.12&amp;domain=uplive.b0.upaiyun.com&amp;shp_seqno=0
+</code></pre>
+<p>可以看出又拍云的 HLS+ 也支持这种 Variant HLS 方式来标识一条 HLS 连接, 可以看出, 又拍云使用 uuid 来表示一条 HLS 连接.</p>
+<h4 id="http-302">HTTP 302</h4>
+<p>首先, 以 HTTP 302 方式来请求播放地址.</p>
+<pre><code>❯ curl -v http://uplive.b0.upaiyun.com/live/loading.m3u8\?shp_identify\=302 -o playlist
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 183.158.35.59...
+* TCP_NODELAY set
+* Connected to uplive.b0.upaiyun.com (183.158.35.59) port 80 (#0)
+&gt; GET /live/loading.m3u8?shp_identify=302 HTTP/1.1
+&gt; Host: uplive.b0.upaiyun.com
+&gt; User-Agent: curl/7.51.0
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 302 Found
+&lt; Server: marco/0.26
+&lt; Date: Wed, 22 Mar 2017 08:54:11 GMT
+&lt; Content-Type: text/plain; charset=utf-8
+&lt; Content-Length: 259
+&lt; Connection: keep-alive
+&lt; Access-Control-Allow-Methods: GET
+&lt; Access-Control-Allow-Origin: *
+&lt; Location: http://183.158.35.19:8080/uplive.b0.upaiyun.com/live/loading.m3u8?shp_uuid=2862b1b817a74cf719b1cd8f554616cd&amp;shp_ts=1490172851450&amp;shp_cid=59553&amp;shp_pid=1730488&amp;shp_sip0=127.0.0.1&amp;shp_sip1=183.158.35.19&amp;domain=uplive.b0.upaiyun.com&amp;shp_identify=302
+&lt;
+{ [259 bytes data]
+* Curl_http_done: called premature == 0
+100   259  100   259    0     0   4813      0 --:--:-- --:--:-- --:--:--  4886
+* Connection #0 to host uplive.b0.upaiyun.com left intact
+</code></pre>
+<p>打开 playlist 内容:</p>
+<pre><code>Redirect to http://183.158.35.19:8080/uplive.b0.upaiyun.com/live/loading.m3u8?shp_uuid=2862b1b817a74cf719b1cd8f554616cd&amp;shp_ts=1490172851450&amp;shp_cid=59553&amp;shp_pid=1730488&amp;shp_sip0=127.0.0.1&amp;shp_sip1=183.158.35.19&amp;domain=uplive.b0.upaiyun.com&amp;shp_identify=302
+</code></pre>
+<p>在跳转之后的地址存放真正的 playlist, 同时, 也能够将 uuid 加入到了连接上.</p>
+<p>总地来说, 不管通过哪种方式, 最终我们都能通过一个唯一的 id 来标识一条流, 这样在排查问题时就可以根据这个 id 来定位播放过程中的问题.</p>
+<h2 id="hls-延时分析">HLS 延时分析</h2>
+<pre><code>HLS 理论延时 = 1 个切片的时长 + 0-1个 td (td 是 EXT-X-TARGETDURATION, 可简单理解为播放器取片的间隔时间) + 0-n 个启动切片(苹果官方建议是请求到 3 个片之后才开始播放) + 播放器最开始请求的片的网络延时(网络连接耗时)
+</code></pre>
+<p>为了追求低延时效果, 可以将切片切的更小, 取片间隔做的更小, 播放器未取到 3 个片就启动播放. 但是, 这些优化方式都会增加 HLS 不稳定和出现错误的风险.</p>
+<h2 id="demo">Demo</h2>
+<ul>
+<li>
+<a href="https://godoc.org/github.com/osrtss/rtss/m3u8" target="_blank" rel="noopener">M3U8 golang library</a>
+</li>
+<li>
+<a href="https://github.com/osrtss/rtss/tree/master/m3u8/example/hlsdownloader" target="_blank" rel="noopener">HLS downloader</a>
+: 读取一个 m3u8 URL, 下载为 TS 文件.</li>
+</ul>
+<h2 id="refs">Refs</h2>
+<ul>
+<li>
+<a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank" rel="noopener">HLS on wikipedia</a>
+</li>
+<li>
+<a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/Introduction/Introduction.html" target="_blank" rel="noopener">Apple Developer</a>
+</li>
+<li>
+<a href="https://mp.weixin.qq.com/s?__biz=MzIyNDA1OTI2Nw==&amp;mid=2666574360&amp;idx=1&amp;sn=ef1a484c04943c765f6fce5f2bddc83c&amp;chksm=f310d8f4c46751e25c91a55817fac4a7f84476925c0bd88a4ca428c3e09c7f3c6357a8887f39&amp;mpshare=1&amp;scene=1&amp;srcid=0322dFKxFXIYndfVLY1Lp289&amp;key=41cc67db7e0a07a6eebe2fdab4a9db5ee1696265738d17dc51bb888e61e485c5be3ccc178acd6b5b185b05e28224c1ba3caa835627757343db3e940331d6afc3316ef7a03908fb727c630026c98a0f57&amp;ascene=0&amp;uin=MzczODI2ODU%3D&amp;devicetype=iMac&#43;MacBookPro11%2C3&#43;OSX&#43;OSX&#43;10.12.3&#43;build%2816D32%29&amp;version=12020010&amp;nettype=WIFI&amp;fontScale=100&amp;pass_ticket=weWVu89q646SDwy9dCFmksdsH21wbzfJgMDMyh4p88A%3D" target="_blank" rel="noopener">流媒体协议—HLS</a>
+</li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/zh/post/hls-explained/&amp;text=HLS%20%e5%8d%8f%e8%ae%ae%e8%af%a6%e8%a7%a3" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/zh/post/hls-explained/&amp;t=HLS%20%e5%8d%8f%e8%ae%ae%e8%af%a6%e8%a7%a3" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=HLS%20%e5%8d%8f%e8%ae%ae%e8%af%a6%e8%a7%a3&amp;body=/zh/post/hls-explained/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/zh/post/hls-explained/&amp;title=HLS%20%e5%8d%8f%e8%ae%ae%e8%af%a6%e8%a7%a3" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=HLS%20%e5%8d%8f%e8%ae%ae%e8%af%a6%e8%a7%a3%20/zh/post/hls-explained/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/zh/post/hls-explained/&amp;title=HLS%20%e5%8d%8f%e8%ae%ae%e8%af%a6%e8%a7%a3" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="/zh/authors/admin/avatar_huc6dec3557548ee034c3f8b409a56beb4_9195_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Akagi201</a></h5>
+      <h6 class="card-subtitle">Professor of Securities development</h6>
+      <p class="card-text">My research interests include blockchain, high frequency trading, crawler and home automation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:akagi201@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<script src="https://utteranc.es/client.js"
+        repo=Akagi201/akagi201.github.io
+        issue-term="pathname"
+        label="Comment"
+        theme=github-dark-orange
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">下一页</div>
+    <a href="/zh/post/eos-contract-token/" rel="next">EOS 合约开发之 token</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">上一页</div>
+    <a href="/zh/post/2016-summary/" rel="prev">2016 总结</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/zh/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"没有找到结果","placeholder":"搜索...","results":"搜索结果"};
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "出版物",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.a0d331bcd05dbe8b31e244f796710f08.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

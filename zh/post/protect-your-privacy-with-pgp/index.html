@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.7.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Akagi201">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="以前大学还在玩ubuntu的时候, 天天逛ubuntu的中文论坛, 看到这么个家伙, http://adam8157.info/about, 他的about页面一直放了一个My PGP/GPG key ID: 2F39D84D, 我一直不知道是干">
+
+  
+  <link rel="alternate" hreflang="zh-Hans" href="/zh/post/protect-your-privacy-with-pgp/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(339, 90%, 68%)">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46663685-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-46663685-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/zh/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/zh/post/protect-your-privacy-with-pgp/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@Akagi201">
+  <meta property="twitter:creator" content="@Akagi201">
+  
+  <meta property="og:site_name" content="赤木酱">
+  <meta property="og:url" content="/zh/post/protect-your-privacy-with-pgp/">
+  <meta property="og:title" content="保护你的隐私, 从PGP开始 | 赤木酱">
+  <meta property="og:description" content="以前大学还在玩ubuntu的时候, 天天逛ubuntu的中文论坛, 看到这么个家伙, http://adam8157.info/about, 他的about页面一直放了一个My PGP/GPG key ID: 2F39D84D, 我一直不知道是干"><meta property="og:image" content="/img/akhead.png">
+  <meta property="twitter:image" content="/img/akhead.png"><meta property="og:locale" content="zh-Hans">
+  
+    
+      <meta property="article:published_time" content="2014-03-29T07:11:08&#43;08:00">
+    
+    <meta property="article:modified_time" content="2014-03-29T07:11:08&#43;08:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/zh/post/protect-your-privacy-with-pgp/"
+  },
+  "headline": "保护你的隐私, 从PGP开始",
+  
+  "datePublished": "2014-03-29T07:11:08+08:00",
+  "dateModified": "2014-03-29T07:11:08+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Akagi201"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Akagi201",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "img//"
+    }
+  },
+  "description": "以前大学还在玩ubuntu的时候, 天天逛ubuntu的中文论坛, 看到这么个家伙, http://adam8157.info/about, 他的about页面一直放了一个My PGP/GPG key ID: 2F39D84D, 我一直不知道是干"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>保护你的隐私, 从PGP开始 | 赤木酱</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="dark">
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#about"><span>关于我</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#posts"><span>博客</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>保护你的隐私, 从PGP开始</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    2014-03-29
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    9 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>以前大学还在玩ubuntu的时候, 天天逛ubuntu的中文论坛, 看到这么个家伙, <a href="http://adam8157.info/about">http://adam8157.info/about</a>, 他的about页面一直放了一个<code>My PGP/GPG key ID: 2F39D84D</code>, 我一直不知道是干什么用的, 我还特意到知乎上问了一下, 不过貌似知乎对这么被认为是可google的问题没兴趣(对八卦和吐槽感兴趣?), 没得到满意答案, 今天有个空挡, 还是自己研究下.</p>
+<p>PGP(OpenPGP)是一个历史悠久的电子加密和签章系统, 透过public key加密演算法, 保护个人电子资料, 不会在散布过程或存储媒体中被有心者窥视, 破坏或伪装. 不同于一般以CA(Certificate Authority, 认证机构)为基础的签章, 加密系统, PGP是分散式的系统, PGP没有中央的控制或信任机构, 因此不会被政府, 少数机构所控制,入侵. 在这个公权力无法被信任的年代, 我们正需要这样的系统, 保护我们的通讯安全.</p>
+<h2 id="web-of-trust">Web Of Trust</h2>
+<p>PGP是透过所谓的web of trust, 建构信任网. 也对于, 透过人际网路, 一对一的交换PGP key(public key), 安全的通讯管道, 建立在人和人之们的信任感上. 相对的, 以CA为基础的系统, 是透过少数集中的组织, 交换public key. 因此, CA容易受政府或少数机构的控制, 而破坏其安全性. 而web of trust则没这样的问题, 没有中央机构可以伪造你的PGP key. PGP的使用者, 透过web of trust确保所使用的 key, 不是政府或第三方所伪造的.</p>
+<ul>
+<li>Web Of Trust的运作: <a href="http://www.pgpi.org/doc/pgpintro/#p20">http://www.pgpi.org/doc/pgpintro/#p20</a></li>
+</ul>
+<h2 id="伪造public-key">伪造Public Key</h2>
+<p>CA为基础的系统, Public Key的散布是透过CA对Public Key进行签名. CA会有一份公开的Public Key, 透过使用对应的secret key对某Public Key签名, 由CA保证其正确性. 而使用者, 透过验证通讯对方的Public Key是否有CA的正确签名, 确保使用正确的Public Key. 这样的系统, 建立在对CA的信任, 因此CA必需是公信的第三者. 然而, 事实上没有绝对公信的第三者, 政治力量随时可能入侵CA, 透过CA的Key, 伪造任何人的Public Key. 因此, 像CA这类中央式的系统, 容易受外力影向, 进行大规模隐私侵害, 无法保护通信的自由和隐密. 事实上, 中国某CA运作单位, 就被怀疑有这种
+<a href="http://blog.nutsfactory.net/2010/02/02/remove-cnnic-cert-on-linux/" target="_blank" rel="noopener">可能</a>
+.</p>
+<h2 id="pgp工具">PGP工具</h2>
+<p>PGP系统的实现, 有两项主要工具, PGP和GPG. PGP是原先的实现, 而GPG则是GNU实现的相容工具, 和PGP相容. 本文介绍GPG的使用.</p>
+<h2 id="产生pgp-key">产生PGP Key</h2>
+<p>GPG基本上会产生两对key, 一组用来sign(签章), 另一组用来encrypt(加密).  Encryption用途的key, 因为比较常被使用, 因此较容易受攻击. (透过分析加密的样本, 数量愈多, 愈可能分析出原本的key.) 因此, 一般建议定期更换加密用的 key. 然而, 更换key非常麻烦, 必需一一重新和拥有你的key的朋友交换. 因此, 签章用途的key通常是和加密用途的key分开的. 签章用途的key较少使用, 因此较不易被破解, 通常是永久使用. 在你更换新加密用途的key时, 能够使用签章用途的key, 为新的key签名. 因此, 你可以透过email或其它网路的方式散布你加密用途的新key. 收到新key的朋友, 就可以使用你签章用途的key, 验证你的新key.</p>
+<p>产生新的PGP key的方法:</p>
+<pre><code>## 两种安装方法
+#1. brew install gnupg # 命令行和linux完全一样
+#2. https://gpgtools.org/ # GUI界面, 其实命令行就够了
+
+akagi201@akrmbp ~ $ gpg --gen-key
+gpg (GnuPG) 1.4.16; Copyright (C) 2013 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+gpg: directory `/Users/akagi201/.gnupg' created
+gpg: new configuration file `/Users/akagi201/.gnupg/gpg.conf' created
+gpg: WARNING: options in `/Users/akagi201/.gnupg/gpg.conf' are not yet active during this run
+gpg: keyring `/Users/akagi201/.gnupg/secring.gpg' created
+gpg: keyring `/Users/akagi201/.gnupg/pubring.gpg' created
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 4
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048)
+Requested keysize is 2048 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0)
+Key does not expire at all
+Is this correct? (y/N) y
+
+You need a user ID to identify your key; the software constructs the user ID
+from the Real Name, Comment and Email Address in this form:
+    &quot;Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de&gt;&quot;
+
+Real name: Akagi201
+Email address: akagi201@gmail.com
+Comment: Bob Liu
+You selected this USER-ID:
+    &quot;Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;&quot;
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+You need a Passphrase to protect your secret key.
+
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+...+++++
+..+++++
+gpg: /Users/akagi201/.gnupg/trustdb.gpg: trustdb created
+gpg: key BAD7F7A3 marked as ultimately trusted
+public and secret key created and signed.
+
+gpg: checking the trustdb
+gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+pub   2048R/BAD7F7A3 2014-05-27
+      Key fingerprint = E19A 2B9C B30F 8D0E 3F14  8C9F 7BAA 088C BAD7 F7A3
+uid                  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+
+Note that this key cannot be used for encryption.  You may want to use
+the command &quot;--edit-key&quot; to generate a subkey for this purpose.
+</code></pre>
+<p>建议选(3)或者(4)(我选了4), 产生只用来签章的key, 并将有效时间设定为永远. 在产生签章用途的key之后, 该key会存在keyring里, 通常是home目录下的.gnupg 子目录, 你能用gpg列出目前存在的key.</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --list-keys
+/Users/akagi201/.gnupg/pubring.gpg
+----------------------------------
+pub   2048R/BAD7F7A3 2014-05-27
+uid                  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+
+akagi201@akrmbp ~ $ gpg --list-secret-keys
+/Users/akagi201/.gnupg/secring.gpg
+----------------------------------
+sec   2048R/BAD7F7A3 2014-05-27
+uid                  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+</code></pre>
+<p>这列出你有一把PGP的Public Key, 接着列出你有一把Secret Key. 这两把key的ID都是0xBAD7F7A3(第二栏, 斜线后), 代表他们是同一对key. Secret Key是使用者收藏(前面有sec字样), 不能让别人知道的部分, 用在签名用途. 而public key则是公开给别人知道(pub字样), 用来验证你的签名.</p>
+<p>接着我们要产生加密用途的key.</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --edit-key BAD7F7A3
+gpg (GnuPG) 1.4.16; Copyright (C) 2013 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+pub  2048R/BAD7F7A3  created: 2014-05-27  expires: never       usage: SC
+                     trust: ultimate      validity: ultimate
+[ultimate] (1). Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+
+gpg&gt; addkey
+Key is protected.
+
+You need a passphrase to unlock the secret key for
+user: &quot;Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;&quot;
+2048-bit RSA key, ID BAD7F7A3, created 2014-05-27
+
+Please select what kind of key you want:
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (5) Elgamal (encrypt only)
+   (6) RSA (encrypt only)
+Your selection? 6
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048)
+Requested keysize is 2048 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0) 2y
+Key expires at Thu May 26 10:59:08 2016 CST
+Is this correct? (y/N) y
+Really create? (y/N) y
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+..+++++
+.+++++
+
+pub  2048R/BAD7F7A3  created: 2014-05-27  expires: never       usage: SC
+                     trust: ultimate      validity: ultimate
+sub  2048R/6E980A59  created: 2014-05-27  expires: 2016-05-26  usage: E
+[ultimate] (1). Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+
+gpg&gt; quit
+Save changes? (y/N) y
+</code></pre>
+<p>请选择(5)或(6)(这里我选择了6), 产生专用来加密用的public key. 这里将有效时间设为两年(2y), 可依据需要设定. 完成之后, 会看到一把subkey(前面有sub字样), 这里得到的key ID为0x6E980A59. 0x6E980A59为0xBAD7F7A3的subkey. 0x6E980A59的有效期限为2年, 因此, 两年之后你必须生成一把新的key, 以取代这把.</p>
+<pre><code>kagi201@akrmbp ~ $ gpg --list-sigs
+/Users/akagi201/.gnupg/pubring.gpg
+----------------------------------
+pub   2048R/BAD7F7A3 2014-05-27
+uid                  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+sig 3        BAD7F7A3 2014-05-27  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+sub   2048R/6E980A59 2014-05-27 [expires: 2016-05-26]
+sig          BAD7F7A3 2014-05-27  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+</code></pre>
+<p>这里可以看到, 0xBAD7F7A3和0x6E980A59这两把key都用0xBAD7F7A3这把key签章过(前面有sig字样). 也就是0xBAD7F7A3 有一个self-sign, 自已签自己.</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --armor --export BAD7F7A3
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1
+
+mQENBFOD/ZQBCADQNTAV2KI+37d/Ep1ginwR2AoMTPe4AbhGVBr5LJsWbrW/y/Ap
+Fyar6eAcT2OLAASpAyJNZpGxrG5QmKRjvcC/Bdx4mudWExs1o3aUwGIeCCUBVBdj
+r0g2kZji/UbuaArRWVBotl/DIqvYswKM762FnQoOKTlMlj45U1dY1WS2ZP8KFhHV
+5RWqJknY8p42QC5Tl09m7TCxkAz7ms+qU8Ya6Af4vLdSo8V7bpbATD2BQtPTpfZt
+3z9rezvDRcsWK4O3Cmx5z+Q6HjQZV7Wbg2L3Q0yUzHktMM997WmRlT3zyUYXeAxG
+wZSAGKcVd4gvHOLiRB5GyuYr8lIQH0GN/uCzABEBAAG0J0FrYWdpMjAxIChCb2Ig
+TGl1KSA8YWthZ2kyMDFAZ21haWwuY29tPokBOAQTAQIAIgUCU4P9lAIbAwYLCQgH
+AwIGFQgCCQoLBBYCAwECHgECF4AACgkQe6oIjLrX96OgqggAr21OZvGgqwo59G7H
+9QGjwVD5OliJgAUuykEuzCv4ATKm+7Y/g/HgGUqIILKzknOPCe2VGTs+6RA98zWk
+9nbdCUEu7oUZTBYq5h1uuPkm4FoJyyrwatSNChqJ4qav6jpZDqGnHwNeEwdY1WNG
+uoC+MDM38u5KET6TnqYgmd5B0HWlUuiUx57uKE70vPRpziNDloeLzKdfD0fibKHN
+ZFOgJJZkoPhr/yigqmQEfdrajTY4YGEy/2HYIULZYQs0paRe0SVw0UqbDZanOvlr
+KOv6XFtH66DjY0pTgUWUXfGylzJAAtgQXQOFDXURC2oYG9DRkvA8q5gaZpqJT4f9
+3Awk0bkBDQRTg/98AQgAwTKF9C/72yRmtTVaLziH93eKSc8jKOPt+Ncio5l+Bdhj
+lJqJLzQWBB8uRa76wcTKMUpPMOPAMYqZjMekbVIrKFfNHh3pD+y90M/rDkhM2M4Z
+gV6XtHnjqhQ4woqejM6k1ADKgndZNoau0TlJ7TagPM33Nay43vHo/BPcx6rs4Ssa
+oSnv0sf4PBJeDfhjna+LVAQ18/rPBRijL/Xh6Bn2PWTrmF59g2mmdzV3WMOMsC+I
+VkuXP20Vg4B0hFi6t9Hx/B5JL9t/xEEo2YKRyia8F4vtraSlhbMwVnfPfWuG5YSh
+AsBa1ByLxCbNdELoLwU69ZDmgFH2x8JdUcm2vslwLwARAQABiQElBBgBAgAPBQJT
+g/98AhsMBQkDwmcAAAoJEHuqCIy61/ejD9MH/A3vij2gjaLl3u1CAQB6n8DUSiyr
++bzEkoLHcJDYAM49oM3GPnkCSLJVM7EYmnlR6GOO4PwXlr2GjoxIer+MDCJ8hq98
+n+H/2kgV8me/DDSoI1WUiIrcVLBcvylqZv3UWN4Vz+hP48iS/CEtPO6up/l3UAL3
+YMWpi96+pnPodjMXL8JcIHlvx8Syxz1J0REI1J7uiGqzvJ9wu4ASYAHtJgi3qsvS
+0FvAJcbdWMRNs51Pi0C1SYeztV7yRih8lTjI9ylUoncY5nKPtHrXjCNfpe0fClHx
+JLz3WwlAX8gFyM3C+dl/622e7EvK9hO/spn8kS3lHD3q2V3t8GtSM4RzsY4=
+=G9Ls
+-----END PGP PUBLIC KEY BLOCK-----
+</code></pre>
+<p>透过上面的指令, 你能将你的public key export出来(导出), 印在纸上, 或存在U盘上, 或者是贴在网路上散布. 然而, 别人如何确定这把key是你的?</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --fingerprint
+/Users/akagi201/.gnupg/pubring.gpg
+----------------------------------
+pub   2048R/BAD7F7A3 2014-05-27
+      Key fingerprint = E19A 2B9C B30F 8D0E 3F14  8C9F 7BAA 088C BAD7 F7A3
+uid                  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+sub   2048R/6E980A59 2014-05-27 [expires: 2016-05-26]
+</code></pre>
+<p>上面指令能列出你的public key的fingerprint(指纹)印出来, 这相当于public key浓缩之后的特征(digest). 因此, 其它使用者只需比对这组fingerprint是否和public key的相符, 就能确定这把key的正确性. 因此, 通常你会把fingerprint 印在纸上, 面对面交给对方. 必要时, 还会检查对方的身份证, 护照或其它身份证明文件.</p>
+<h2 id="交换key">交换key</h2>
+<p>在开始交换key之前, 建议先把你的public key上传到key server, 别人只需从key server上下载你的key. key server 是由第三方所维护的, 只负责key的散布, 而不负责签名, 因此不会有前面所述伪造的问题.</p>
+<p>如下, 上传 0xBAD7F7A3这把key.(注意, 这里需要把shell的http代理关掉,否则上传失败) 上传完之后可以到<a href="http://keys.gnupg.net/">http://keys.gnupg.net/</a>查询.</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --send-keys BAD7F7A3
+gpg: sending key BAD7F7A3 to hkp server keys.gnupg.net
+</code></pre>
+<p>之后, 你只需告诉别人你的key id和fingerprint, 其它使用者就能下载和验证完整的public key.</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --recv-keys BAD7F7A3
+gpg: requesting key BAD7F7A3 from hkp server keys.gnupg.net
+gpg: key BAD7F7A3: &quot;Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;&quot; not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+akagi201@akrmbp ~ $ gpg --fingerprint
+/Users/akagi201/.gnupg/pubring.gpg
+----------------------------------
+pub   2048R/BAD7F7A3 2014-05-27
+      Key fingerprint = E19A 2B9C B30F 8D0E 3F14  8C9F 7BAA 088C BAD7 F7A3
+uid                  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+sub   2048R/6E980A59 2014-05-27 [expires: 2016-05-26]
+</code></pre>
+<p>例如, 本人的key ID是 0xBAD7F7A3. User ID为&quot;Akagi201 (Bob Liu)&quot;(前有uid字样). 你可以透过上面的指令下载我的 public key, 并验证fingerprint.</p>
+<p>在下载和验证完成别人的public key之后, 若对方是你信任的人, 你可以为他的key签名. 当你为别人的key签名之后, 对方可以分布你的签名, 加强他的public key的可信度, 于是认识你的朋友, 可以依据你的签名, 决定是否相信该public key. 你也可以依据朋友的签名, 决定是否相信其它人的 public key.(下面的例子中我自己没法再给我自己签名了)</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --sign-key BAD7F7A3
+
+pub  2048R/BAD7F7A3  created: 2014-05-27  expires: never       usage: SC
+                     trust: ultimate      validity: ultimate
+sub  2048R/6E980A59  created: 2014-05-27  expires: 2016-05-26  usage: E
+[ultimate] (1). Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+
+&quot;Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;&quot; was already signed by key BAD7F7A3
+Nothing to sign with key BAD7F7A3
+
+Key not changed so no update needed.
+</code></pre>
+<p>上面的指令将使用你的secret key, 为 0xBAD7F7A3这把public key签章. 签完之后, 就可以看到0xBAD7F7A3这把key 多了一个签名. 你能将这个签名后的public key(再次)上传到key server, 或export成档案散布. 通常该public key 的原拥有者, 会希望取得你的签名.</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --list-sigs
+/Users/akagi201/.gnupg/pubring.gpg
+----------------------------------
+pub   2048R/BAD7F7A3 2014-05-27
+uid                  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+sig 3        BAD7F7A3 2014-05-27  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+sub   2048R/6E980A59 2014-05-27 [expires: 2016-05-26]
+sig          BAD7F7A3 2014-05-27  Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;
+</code></pre>
+<h2 id="加密">加密</h2>
+<p>当你想要传送机密资料给其它人时, 可使用对方的public key为信件和资料加密. 只有对应的secret key, 才能解开该份信件或资料.</p>
+<pre><code>akagi201@akrmbp ~ $ gpg --armor --encrypt --output akmsg.asc akmsg.txt
+You did not specify a user ID. (you may use &quot;-r&quot;)
+
+Current recipients:
+
+Enter the user ID.  End with an empty line: Akagi201
+
+Current recipients:
+2048R/6E980A59 2014-05-27 &quot;Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;&quot;
+
+Enter the user ID.  End with an empty line:
+akagi201@akrmbp ~ $ cat akmsg.asc
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+hQEMA4V0fiJumApZAQgAq5In+b2OiG7ruCfhbycUEUKgSTGrcSdErFuWHbWKpcSj
+xItKaJX6s5FGGG01p4Q9h/kYzhOzwnxHmMDFszzcW9cxBSPXES5qpGJd5lO0PTCX
+t7yma4geYmFG1zajkJzsnVyJl4NTvfnMgRcAKRqD5QZuo6vQNaURGsDtwcqY/iRt
+6wD958HnBr3+OGkP6KCsjbhYsOrIaVnnfF0TEK0cxyCgu2743O8F9rwhwwTVBCMU
+qHRXaHjRaGysflcnXlqHVRbHFYKTg+Mo2K2avricTKzu/bdV6J1jeCkqfXrbGKqD
+aDxCmYZH1y7JmBNJJhYaWlth0b3Ir26+kO/RSOji2NJRAcJ1/bZK6uROY1LeuMps
+G0zdH0ODNvV/sAe+9C23CqGFXrN/z4XdEHR1WyU3ZWUrPnEP4Z1hkQ2zy8ncy32I
+92E6SyWit6R7KNbhHu8/A7jt
+=F1tG
+-----END PGP MESSAGE-----
+akagi201@akrmbp ~ $ cat akmsg.txt
+This is secret
+</code></pre>
+<p>例如上面的指令, 使用0x6E980A59这把key(0xBAD7F7A3的subkey), 将akmsg.txt这份文件加密, 并存成akmsg.asc. 上面指令中, 只需输入对方的email address或者user ID(uid), 就会从你的keyring中, 找出对方用来加密的public key.</p>
+<h2 id="解密">解密</h2>
+<p>在你收到加密的文件时, 只需使用下面指令就可以使用存在keyring里的secret key, 为文件解密.</p>
+<pre><code>akagi201@akrmbp ~ $ rm akmsg.txt
+akagi201@akrmbp ~ $ gpg --decrypt --output akmsg.txt akmsg.asc
+
+You need a passphrase to unlock the secret key for
+user: &quot;Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;&quot;
+2048-bit RSA key, ID 6E980A59, created 2014-05-27 (main key ID BAD7F7A3)
+
+gpg: encrypted with 2048-bit RSA key, ID 6E980A59, created 2014-05-27
+      &quot;Akagi201 (Bob Liu) &lt;akagi201@gmail.com&gt;&quot;
+akagi201@akrmbp ~ $ cat akmsg.txt
+This is secret
+</code></pre>
+<h2 id="提醒">提醒</h2>
+<p>虽然可能性不是那么高, 但你永远不知道哪一天会需要这样的科技, 以保障你的通讯安全. 若不从现在开始建立你的web of trust, 需要时, 可能为时已晚. 请妥善保管你的secret key, 别让任何人有机可趁. 保护自己, 也保护朋友.</p>
+<h2 id="refs">Refs</h2>
+<ul>
+<li><a href="http://www.codemud.net/~thinker/GinGin_CGI.py/show_id_doc/478">http://www.codemud.net/~thinker/GinGin_CGI.py/show_id_doc/478</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/zh/post/protect-your-privacy-with-pgp/&amp;text=%e4%bf%9d%e6%8a%a4%e4%bd%a0%e7%9a%84%e9%9a%90%e7%a7%81,%20%e4%bb%8ePGP%e5%bc%80%e5%a7%8b" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/zh/post/protect-your-privacy-with-pgp/&amp;t=%e4%bf%9d%e6%8a%a4%e4%bd%a0%e7%9a%84%e9%9a%90%e7%a7%81,%20%e4%bb%8ePGP%e5%bc%80%e5%a7%8b" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=%e4%bf%9d%e6%8a%a4%e4%bd%a0%e7%9a%84%e9%9a%90%e7%a7%81,%20%e4%bb%8ePGP%e5%bc%80%e5%a7%8b&amp;body=/zh/post/protect-your-privacy-with-pgp/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/zh/post/protect-your-privacy-with-pgp/&amp;title=%e4%bf%9d%e6%8a%a4%e4%bd%a0%e7%9a%84%e9%9a%90%e7%a7%81,%20%e4%bb%8ePGP%e5%bc%80%e5%a7%8b" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=%e4%bf%9d%e6%8a%a4%e4%bd%a0%e7%9a%84%e9%9a%90%e7%a7%81,%20%e4%bb%8ePGP%e5%bc%80%e5%a7%8b%20/zh/post/protect-your-privacy-with-pgp/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/zh/post/protect-your-privacy-with-pgp/&amp;title=%e4%bf%9d%e6%8a%a4%e4%bd%a0%e7%9a%84%e9%9a%90%e7%a7%81,%20%e4%bb%8ePGP%e5%bc%80%e5%a7%8b" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="/zh/authors/admin/avatar_huc6dec3557548ee034c3f8b409a56beb4_9195_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Akagi201</a></h5>
+      <h6 class="card-subtitle">Professor of Securities development</h6>
+      <p class="card-text">My research interests include blockchain, high frequency trading, crawler and home automation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:akagi201@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<script src="https://utteranc.es/client.js"
+        repo=Akagi201/akagi201.github.io
+        issue-term="pathname"
+        label="Comment"
+        theme=github-dark-orange
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">下一页</div>
+    <a href="/zh/post/learning-kernel/" rel="next">Learning Kernel</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">上一页</div>
+    <a href="/zh/post/network-device-framework/" rel="prev">网络嵌入式设备框架</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/zh/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"没有找到结果","placeholder":"搜索...","results":"搜索结果"};
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "出版物",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.a0d331bcd05dbe8b31e244f796710f08.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

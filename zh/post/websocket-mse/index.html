@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.7.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Akagi201">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="当前为了满足比较火热的移动 Web 端直播需求, 一系列的 HTML5 直播技术迅速的发展了起来. 常见的可用于 HTML5 的直播技术有 HLS, WebSocket 与 WebRTC. 今天我要向大家介绍一下 WebSocket 与 MSE 相">
+
+  
+  <link rel="alternate" hreflang="zh-Hans" href="/zh/post/websocket-mse/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(339, 90%, 68%)">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46663685-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-46663685-3', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/zh/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/zh/post/websocket-mse/">
+
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@Akagi201">
+  <meta property="twitter:creator" content="@Akagi201">
+  
+  <meta property="og:site_name" content="赤木酱">
+  <meta property="og:url" content="/zh/post/websocket-mse/">
+  <meta property="og:title" content="HTML5 直播协议之 WebSocket 和 MSE | 赤木酱">
+  <meta property="og:description" content="当前为了满足比较火热的移动 Web 端直播需求, 一系列的 HTML5 直播技术迅速的发展了起来. 常见的可用于 HTML5 的直播技术有 HLS, WebSocket 与 WebRTC. 今天我要向大家介绍一下 WebSocket 与 MSE 相"><meta property="og:image" content="/img/akhead.png">
+  <meta property="twitter:image" content="/img/akhead.png"><meta property="og:locale" content="zh-Hans">
+  
+    
+      <meta property="article:published_time" content="2016-12-02T10:39:50&#43;08:00">
+    
+    <meta property="article:modified_time" content="2016-12-02T10:39:50&#43;08:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/zh/post/websocket-mse/"
+  },
+  "headline": "HTML5 直播协议之 WebSocket 和 MSE",
+  
+  "datePublished": "2016-12-02T10:39:50+08:00",
+  "dateModified": "2016-12-02T10:39:50+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Akagi201"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Akagi201",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "img//"
+    }
+  },
+  "description": "当前为了满足比较火热的移动 Web 端直播需求, 一系列的 HTML5 直播技术迅速的发展了起来. 常见的可用于 HTML5 的直播技术有 HLS, WebSocket 与 WebRTC. 今天我要向大家介绍一下 WebSocket 与 MSE 相"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>HTML5 直播协议之 WebSocket 和 MSE | 赤木酱</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="dark">
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/zh">赤木酱</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#about"><span>关于我</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/zh/#posts"><span>博客</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>HTML5 直播协议之 WebSocket 和 MSE</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    2016-12-02
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>当前为了满足比较火热的移动 Web 端直播需求, 一系列的 HTML5 直播技术迅速的发展了起来.</p>
+<p>常见的可用于 HTML5 的直播技术有 HLS, WebSocket 与 WebRTC. 今天我要向大家介绍一下 WebSocket 与 MSE 相关的内容, 并在最后通过一个实际的例子, 来展示其具体的用法.</p>
+<h2 id="大纲">大纲</h2>
+<ul>
+<li>WebSocket 协议介绍.</li>
+<li>WebSocket Client/Server API 介绍.</li>
+<li>MSE 介绍.</li>
+<li>fMP4 介绍.</li>
+<li>Demo 展示.</li>
+</ul>
+<h2 id="websocket">WebSocket</h2>
+<p>通常的 Web 应用都是围绕着 HTTP 的请求/响应模型而构建的. 所有的 HTTP 通信都是通过客户端来控制的, 都是由客户端向服务器发出一个请求, 服务器接收和处理完毕后再返回结果给客户端, 客户端再将数据展现出来. 这种模式不能满足实时应用的需求, 于是出现了 SSE, Comet 等 &ldquo;服务器推&rdquo; 的长连接技术.</p>
+<p>WebSocket 是直接基于 TCP 连接之上的通信协议, 可以在单个 TCP 连接上进行全双工的通信. WebSocket 在 2011 年被 IETF 定为标准 RFC 6455, 并被 RFC 7936 所补充规范, WebSocket API 被 W3C 定为标准.</p>
+<p>WebSocket 是独立的创建在 TCP 上的协议, HTTP 协议中的那些概念都不复存在, 和 HTTP 的唯一关联是使用 HTTP 协议的 101 状态码进行协议切换, 使用的 TCP 端口是 80, 可以用于绕过大多数防火墙的限制.</p>
+<p><img src="http://akagi201.qiniudn.com/websocket_protocol.png" alt="websocket_protocol"></p>
+<h3 id="websocket-握手">WebSocket 握手</h3>
+<p>为了更方便地部署新协议，HTTP/1.1 引入了 Upgrade 机制, 它使得客户端和服务端之间可以借助已有的 HTTP 语法升级到其它协议. 这个机制在 RFC7230 的 
+<a href="http://httpwg.org/specs/rfc7230.html#header.upgrade" target="_blank" rel="noopener">6.7 Upgrade</a>
+) 一节中有详细描述.</p>
+<p>要发起 HTTP/1.1 协议升级，客户端必须在请求头部中指定这两个字段:</p>
+<pre><code>Connection: Upgrade
+Upgrade: protocol-name[/protocol-version]
+</code></pre>
+<p>如果服务端同意升级, 那么需要这样响应:</p>
+<pre><code>HTTP/1.1 101 Switching Protocols
+Connection: upgrade
+Upgrade: protocol-name[/protocol-version]
+
+[... data defined by new protocol ...]
+</code></pre>
+<p>可以看到, HTTP Upgrade 响应的状态码是 <code>101</code>, 并且响应正文可以使用新协议定义的数据格式.</p>
+<p>WebSocket 握手就利用了这种 HTTP Upgrade 机制. 一旦握手完成，后续数据传输就直接在 TCP 上完成.</p>
+<h3 id="websocket-javascript-api">WebSocket JavaScript API</h3>
+<p>目前主流的浏览器提供了 WebSocket 的 API 接口, 可以发送消息(文本或者二进制)给服务器, 并且接收事件驱动的响应数据.</p>
+<p>Step1 检查浏览器是否支持 WebSocket.</p>
+<pre><code>if(window.WebSocket) {
+	// WebSocket代码
+}
+</code></pre>
+<p>Step2 建立连接</p>
+<pre><code>var ws = new WebSocket('ws://localhost:8327');
+</code></pre>
+<p>Step3 注册回调函数以及收发数据</p>
+<p>分别注册 WebSocket 对象的 onopen, onclose, onerror 以及 onmessage 回调函数.</p>
+<p>通过 <code>ws.send()</code> 来进行发送数据, 这里不仅可以发送字符串, 也可以发送 Blob 或 ArrayBuffer 类型的数据.</p>
+<p>如果接收的是二进制数据，需要将连接对象的格式设为 blob 或 arraybuffer.</p>
+<pre><code>ws.binaryType = 'arraybuffer';
+</code></pre>
+<h3 id="websocket-golang-api">WebSocket Golang API</h3>
+<p>服务器端 WebSocket 库我推荐使用 Google 自己的 
+<a href="https://godoc.org/golang.org/x/net/websocket" target="_blank" rel="noopener"><code>golang.org/x/net/websocket</code></a>
+, 可以非常方便的与 <code>net/http</code> 一起使用.</p>
+<p>可以将 websocket 的 handler function 通过 <code>websocket.Handler</code> 转换成 <code>http.Handler</code>, 这样就可以跟 <code>net/http</code> 库一起使用了.</p>
+<p>然后通过 <code>websocket.Message.Receive</code> 来接收数据, 通过 <code>websocket.Message.Send</code> 来发送数据.</p>
+<p>具体代码可以看下面的 Demo 部分.</p>
+<h2 id="mse">MSE</h2>
+<p>在介绍 MSE 之前, 我们先看看 HTML5 <code>&lt;audio&gt;</code> 和 <code>&lt;video&gt;</code> 有哪些限制.</p>
+<h3 id="html5-audio-和-video-标签的限制">HTML5 <audio> 和 <video> 标签的限制</h3>
+<ul>
+<li>不支持流.</li>
+<li>不支持 DRM 和加密.</li>
+<li>很难自定义控制, 以及保持跨浏览器的一致性.</li>
+<li>编解码和封装在不同浏览器支持不同.</li>
+</ul>
+<p>MSE 是解决 HTML5 的流问题.</p>
+<p>Media Source Extensions (MSE) 是一个主流浏览器支持的新的 Web API. MSE 是一个 W3C 标准, 允许 JavaScript 动态的构建 <code>&lt;video&gt;</code> 和 <code>&lt;audio&gt;</code> 的媒体流. 他定义了对象, 允许 JavaScript 传输媒体流片段到一个 HTMLMediaElement.</p>
+<p>通过使用 MSE, 你可以动态地修改媒体流而不需要任何的插件. 这让前端 JavaScript 可以做更多的事情, 我们可以在 JavaScript 进行转封装, 处理, 甚至转码.</p>
+<p>虽然 MSE 不能让流直接传输到 media tags 上, 但是 MSE 提供了构建跨浏览器播放器的核心技术, 让浏览器通过 JavaScript API 来推音视频到 media tags 上.</p>
+<p>现在每个客户端平台都开始逐步开放流媒体相关的 API: Flash 平台有 Netstream, Android 平台有 Media Codec API, 而 Web 上对应的就是标准的 MSE. 由此可以看出, 未来的趋势是在客户端可以做越来越多的事情.</p>
+<h3 id="browser-support">Browser Support</h3>
+<p>通过 
+<a href="http://caniuse.com/#feat=mediasource" target="_blank" rel="noopener">caniuse</a>
+ 来检查是否浏览器支持情况.</p>
+<p><img src="http://akagi201.qiniudn.com/mse-support.png" alt="mse-support"></p>
+<p>通过 
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaSource/isTypeSupported" target="_blank" rel="noopener"><code>MediaSource.isTypeSupported()</code></a>
+ 可以进一步地检查 codec MIME 类型是否支持.</p>
+<p>比较常用的视频封装格式有 webm 和 fMP4.</p>
+<p>WebM 和 WebP 是两个姊妹项目, 都是由 Google 赞助的. 由于 WebM 是基于 Matroska 的容器格式, 所以天生是流式的, 很适合用在流媒体领域里.</p>
+<p>下面着重介绍一些 fMP4 格式.</p>
+<p>我们都知道 MP4 是由一系列的 Boxes 组成的. 普通的 MP4 的是嵌套结构的, 客户端必须要从头加载一个 MP4 文件, 才能够完整播放, 不能从中间一段开始播放.</p>
+<p>而 fMP4 由一系列的片段组成, 如果你的服务器支持 byte-range 请求, 那么, 这些片段可以独立的进行请求到客户端进行播放, 而不需要加载整个文件.</p>
+<p>为了更加形象的说明这一点, 下面我介绍几个常用的分析 MP4 文件的工具.</p>
+<ul>
+<li>
+<a href="https://gpac.wp.mines-telecom.fr/" target="_blank" rel="noopener">gpac</a>
+ 原名 mp4box, 是一个媒体开发框架, 在其源码下有大量的媒体分析工具可以使用, 
+<a href="https://github.com/gpac/gpac/tree/master/applications/testapps" target="_blank" rel="noopener">testapps</a>
+</li>
+<li>
+<a href="http://download.tsi.telecom-paristech.fr/gpac/mp4box.js/filereader.html" target="_blank" rel="noopener">mp4box.js</a>
+ 是 mp4box 的 Javascript 版本.</li>
+<li>
+<a href="https://www.bento4.com/" target="_blank" rel="noopener">bento4</a>
+ 一个专门用于 MP4 的分析工具.</li>
+<li>
+<a href="http://mp4parser.com/" target="_blank" rel="noopener">mp4parser</a>
+ 在线 MP4 文件分析工具.</li>
+</ul>
+<h3 id="fragment-mp4-vs-non-fragment-mp4">fragment mp4 vs non-fragment mp4</h3>
+<p>下面一个 fragment mp4 文件通过 
+<a href="http://mp4parser.com/" target="_blank" rel="noopener">mp4parser</a>
+ 分析后的截图</p>
+<p><img src="http://akagi201.qiniudn.com/fmp4.png" alt="fmp4"></p>
+<p>下面一个 non-fragment mp4 文件通过 
+<a href="http://mp4parser.com/" target="_blank" rel="noopener">mp4parser</a>
+ 分析后的截图</p>
+<p><img src="http://akagi201.qiniudn.com/nfmp4.png" alt="nfmp4"></p>
+<p>Apple 在今年的 WWDC 大会上宣布会在 iOS 10, tvOS, macOS 的 HLS 中支持 fMP4.</p>
+<p>值得一提的是, fMP4, CMAF, ISOBMFF 其实都是类似的东西.</p>
+<h3 id="mse-javascript-api">MSE JavaScript API</h3>
+<p>从高层次上看, MSE 提供了</p>
+<ul>
+<li>一套 JavaScript API 来构建 media streams.</li>
+<li>一个拼接和缓存模型.</li>
+<li>识别一些 byte 流类型:
+<ul>
+<li>WebM</li>
+<li>ISO Base Media File Format</li>
+<li>MPEG-2 Transport Streams</li>
+</ul>
+</li>
+</ul>
+<h3 id="mse-内部结构">MSE 内部结构</h3>
+<p><img src="http://akagi201.qiniudn.com/mse_arch.png" alt="mse_arch"></p>
+<p>MSE 本身的设计是不依赖任务特定的编解码和容器格式的, 但是不同的浏览器支持程度是不一样的. 可以通过传递一个 MIME 类型的字符串到静态方法: MediaSource.isTypeSupported 来检查.</p>
+<p>比如:</p>
+<pre><code>MediaSource.isTypeSupported('audio/mp3'); // false
+MediaSource.isTypeSupported('video/mp4'); // true
+MediaSource.isTypeSupported('video/mp4; codecs=&quot;avc1.4D4028, mp4a.40.2&quot;'); // true
+</code></pre>
+<p>获取 Codec MIME string 的方法可以通过在线的 
+<a href="http://nickdesaulniers.github.io/mp4info/" target="_blank" rel="noopener">mp4info</a>
+ 或者使用命令行 <code>mp4info test.mp4 | grep Codecs</code></p>
+<p>可以得到类似如下结果:</p>
+<pre><code>❯ mp4info fmp4.mp4| grep Codec
+    Codecs String: mp4a.40.2
+    Codecs String: avc1.42E01E
+</code></pre>
+<p>当前, H.264 + AAC 的 MP4 容器在所有的浏览器都支持.</p>
+<p>普通的 MP4 文件是不能和 MSE 一起使用的, 需要将 MP4 进行 fragment 化.</p>
+<p>检查一个 MP4 是否已经 fragment 的方法</p>
+<pre><code>mp4dump test.mp4 | grep &quot;\[m&quot;
+</code></pre>
+<p>如果是 non-fragment 会显示类似信息.</p>
+<pre><code>❯ mp4dump nfmp4.mp4 | grep &quot;\[m&quot;
+[mdat] size=8+50873
+[moov] size=8+7804
+  [mvhd] size=12+96
+    [mdia] size=8+3335
+      [mdhd] size=12+20
+      [minf] size=8+3250
+    [mdia] size=8+3975
+      [mdhd] size=12+20
+      [minf] size=8+3890
+            [mp4a] size=8+82
+    [meta] size=12+78
+</code></pre>
+<p>如果已经 fragment, 会显示如下类似信息.</p>
+<pre><code>❯ mp4dump fmp4.mp4 | grep &quot;\[m&quot; | head -n 30
+[moov] size=8+1871
+  [mvhd] size=12+96
+    [mdia] size=8+312
+      [mdhd] size=12+20
+      [minf] size=8+219
+            [mp4a] size=8+67
+    [mdia] size=8+371
+      [mdhd] size=12+20
+      [minf] size=8+278
+    [mdia] size=8+248
+      [mdhd] size=12+20
+      [minf] size=8+156
+    [mdia] size=8+248
+      [mdhd] size=12+20
+      [minf] size=8+156
+  [mvex] size=8+144
+    [mehd] size=12+4
+[moof] size=8+600
+  [mfhd] size=12+4
+[mdat] size=8+138679
+[moof] size=8+536
+  [mfhd] size=12+4
+[mdat] size=8+24490
+[moof] size=8+592
+  [mfhd] size=12+4
+[mdat] size=8+14444
+[moof] size=8+312
+  [mfhd] size=12+4
+[mdat] size=8+1840
+[moof] size=8+600
+</code></pre>
+<p>把一个 non-fragment MP4 转换成 fragment MP4.</p>
+<p>可以使用 FFmpeg 的 <code>-movflags</code> 来转换</p>
+<p>对于原始文件为非 MP4 文件</p>
+<pre><code>ffmpeg -i trailer_1080p.mov -c:v copy -c:a copy -movflags frag_keyframe+empty_moov bunny_fragmented.mp4
+</code></pre>
+<p>对于原始文件已经是 MP4 文件</p>
+<pre><code>ffmpeg -i non_fragmented.mp4 -movflags frag_keyframe+empty_moov fragmented.mp4
+</code></pre>
+<p>或者使用 mp4fragment</p>
+<pre><code>mp4fragment input.mp4 output.mp4
+</code></pre>
+<h2 id="demo">demo</h2>
+<ul>
+<li>
+<a href="https://github.com/Akagi201/learning-webrtc/tree/master/mse/vod" target="_blank" rel="noopener">MSE Vod Demo</a>
+ 展示利用 MSE 和 WebSocket 实现一个点播服务.</li>
+<li>
+<a href="https://github.com/Akagi201/learning-webrtc/tree/master/mse/live" target="_blank" rel="noopener">MSE Live Demo</a>
+ 展示利用 MSE 和 WebSocket 实现一个直播服务.</li>
+</ul>
+<h2 id="mse-vod-demo">MSE VOD Demo</h2>
+<video src="http://akagi201.qiniudn.com/mse_vod_demo.mp4" width="480" height="320" controls="controls">
+Your browser does not support the video tag.
+</video>
+<h2 id="mse-live-demo">MSE Live Demo</h2>
+<video src="http://akagi201.qiniudn.com/mse_live_demo.mp4" width="480" height="320" controls="controls">
+Your browser does not support the video tag.
+</video>
+<h2 id="refs">Refs</h2>
+<h3 id="websocket-1">WebSocket</h3>
+<ul>
+<li>
+<a href="https://tools.ietf.org/html/rfc6455" target="_blank" rel="noopener">rfc6455</a>
+</li>
+<li>
+<a href="https://imququ.com/post/protocol-negotiation-in-http2.html" target="_blank" rel="noopener">HTTP Upgrade</a>
+</li>
+<li>
+<a href="http://javascript.ruanyifeng.com/htmlapi/websocket.html" target="_blank" rel="noopener">WebSocket API</a>
+</li>
+<li>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="_blank" rel="noopener">MDN WebSocket</a>
+</li>
+<li>
+<a href="https://github.com/winlinvip/videojs-flow" target="_blank" rel="noopener">videojs-flow</a>
+</li>
+</ul>
+<h3 id="mse-1">MSE</h3>
+<ul>
+<li>
+<a href="https://www.w3.org/TR/media-source" target="_blank" rel="noopener">W3C</a>
+</li>
+<li>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaSource" target="_blank" rel="noopener">MDN MSE</a>
+</li>
+<li>
+<a href="http://www.leanbackplayer.com/test/h5mt.html" target="_blank" rel="noopener">HTML5 Codec MIME</a>
+</li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/zh/post/websocket-mse/&amp;text=HTML5%20%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%e4%b9%8b%20WebSocket%20%e5%92%8c%20MSE" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/zh/post/websocket-mse/&amp;t=HTML5%20%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%e4%b9%8b%20WebSocket%20%e5%92%8c%20MSE" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=HTML5%20%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%e4%b9%8b%20WebSocket%20%e5%92%8c%20MSE&amp;body=/zh/post/websocket-mse/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/zh/post/websocket-mse/&amp;title=HTML5%20%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%e4%b9%8b%20WebSocket%20%e5%92%8c%20MSE" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=HTML5%20%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%e4%b9%8b%20WebSocket%20%e5%92%8c%20MSE%20/zh/post/websocket-mse/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/zh/post/websocket-mse/&amp;title=HTML5%20%e7%9b%b4%e6%92%ad%e5%8d%8f%e8%ae%ae%e4%b9%8b%20WebSocket%20%e5%92%8c%20MSE" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="/zh/authors/admin/avatar_huc6dec3557548ee034c3f8b409a56beb4_9195_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Akagi201</a></h5>
+      <h6 class="card-subtitle">Professor of Securities development</h6>
+      <p class="card-text">My research interests include blockchain, high frequency trading, crawler and home automation.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:akagi201@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/Akagi201" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<script src="https://utteranc.es/client.js"
+        repo=Akagi201/akagi201.github.io
+        issue-term="pathname"
+        label="Comment"
+        theme=github-dark-orange
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">下一页</div>
+    <a href="/zh/post/2016-summary/" rel="next">2016 总结</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">上一页</div>
+    <a href="/zh/post/http-flv-explained/" rel="prev">直播协议 HTTP-FLV 详解</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/zh/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"没有找到结果","placeholder":"搜索...","results":"搜索结果"};
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "出版物",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.a0d331bcd05dbe8b31e244f796710f08.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
