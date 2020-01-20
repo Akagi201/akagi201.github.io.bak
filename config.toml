@@ -1,16 +1,7 @@
-baseurl = "http://akagi201.github.io/"
-title = "Akagi201"
-author = "Akagi201"
-copyright = "Copyright (c) 2008 - 2015, Akagi201; all rights reserved."
-canonifyurls = true
-paginate = 5
-
-[params]
-	description = "The quieter, the more!"
-	gravatarHash = "fe6efcdd159a897e3937d132538129bb"
-	github = "https://github.com/Akagi201"
-	googleplus = "https://plus.google.com/+BobLiuAkagi201"
-	disqusShortname = "akagi201"
-	enableRobotsTXT = true
-	googleAnalytics = "UA-46663685-3"
-	highlight = true
+# Academic Website Builder
+# https://sourcethemes.com/academic/
+#
+# The presence of this file is for compatibility with Blogdown and Forestry.
+# If you are not using those tools, this file may be deleted.
+#
+# The actual configuration files are stored in the `config/_default/` folder.

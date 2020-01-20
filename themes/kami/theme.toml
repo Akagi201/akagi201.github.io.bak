@@ -1,0 +1,49 @@
+name = "kami"
+license = "MIT"
+licenselink = "https://github.com/Akagi201/kami/master/LICENSE.md"
+description = "The website builder for Hugo. Build *anything* with widgets and deploy with one click! Fully personalize your site with themes, plugins, and language packs."
+homepage = "https://github.com/Akagi201/kami"
+min_version = "0.62"
+tags = ["widgets",
+        "resume",
+        "portfolio",
+        "responsive",
+        "clean",
+        "personal",
+        "company",
+        "blog",
+        "minimal",
+        "light",
+        "dark",
+        "multilingual",
+        "documentation",
+        "landing page",
+        "projects",
+        "single page",
+        "contact form",
+        "mobile",
+        "gallery",
+        "search",
+        "presentation",
+        "simple",
+        "minimalist",
+        "starter",
+        "modern",
+        "one page",
+        "customizable",
+        "technical",
+        "product",
+        "slide"
+        ]
+features = ["page builder", "widgets", "themes", "search", "research publication system", "filterable portfolio",
+            "blog", "create courses", "talks", "events", "slides", "gallery", "contact form"]
+
+[author]
+  name = "Akagi201"
+  homepage = "http://akagi201.me"
+
+# If porting an existing theme
+[original]
+  name = "George Cushen"
+  homepage = "https://georgecushen.com"
+  repo = "https://github.com/gcushen/hugo-academic"
