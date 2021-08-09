@@ -1,0 +1,6 @@
+[submodule "themes/kami"]
+	path = themes/kami
+	url = https://github.com/Akagi201/kami.git
+[submodule "theme/kami"]
+	path = theme/kami
+	url = https://github.com/Akagi201/kami.git
